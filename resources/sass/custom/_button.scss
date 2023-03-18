@@ -1,0 +1,79 @@
+//
+// Base styles
+//
+.btn {
+    display: inline-block;
+    font-family: $btn-font-family;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
+    color: $body-text;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: $btn-border-width solid $body-text;
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+    @include transition($btn-transition);
+    outline: 0 !important;
+    min-height: 41px;
+    max-height: 56px;
+
+    &:disabled,
+    &.disabled,
+    fieldset:disabled & {
+        pointer-events: none;
+        opacity: $btn-disabled-opacity;
+        @include box-shadow(none);
+    }
+
+    // custom styles
+    z-index: 2;
+}
+
+//button mixins
+@mixin button-variant($color) {
+    background-color: $color;
+    border-color: $color;
+
+    &:hover {
+        box-shadow: none;
+        background: $red;
+        color: #fff !important;
+    }
+}
+
+@mixin button-outline-variant($color) {
+    border-color: $color;
+    color: $color;
+
+    &:hover {
+        background: $color;
+        color: black !important;
+
+        svg path {
+            stroke: black;
+        }
+    }
+}
+
+.link-trans {
+    color: $body-text !important;
+
+    &:hover, &:focus {
+        color: $white !important;
+        background-color: $red!important;
+    }
+}
+.link-red {
+    color: $white !important;
+    background-color: $red!important;
+    border: 1px solid transparent;
+    &:hover, &:focus {
+        color: $red !important;
+        background-color: transparent!important;
+        border: 1px solid $red;
+    }
+}

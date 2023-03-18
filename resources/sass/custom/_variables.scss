@@ -1,0 +1,60 @@
+//Theme Colors
+$red: #C6282B;
+$dark: #120600;
+$light-dark: #EDEDED;
+$semi-light-dark:#EFEFEF;
+$gray: #222222;
+$light-gray: #f7f7f7;
+
+$nav-def: #6C757D;
+
+$background-color:#ffffff;
+$primary: $red;
+$body-color: #6C757D;
+$body-text: $body-color;
+
+$custom-colors: (
+        "red":$red,
+        "dark-bg": $dark,
+        "light-dark": $light-dark,
+        "semi-light": $semi-light-dark,
+        "gray": $gray,
+        "text-gray": $body-color,
+        "light-gray": $light-gray,
+        "nav-def": $nav-def
+);
+
+
+
+//fonts
+$small: 0.87rem;
+$font-size-sm:$small;
+$font-sizes: (
+        1: 2.5rem,
+        2: 2rem,
+        3: 1.75rem,
+        4: 1.5rem,
+        5: 1.25rem,
+        6: 1rem
+);
+
+$font-family-base: Iransans, 'sans-serif', 'Nunito';
+
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-bolder: 900;
+$font-weight-base: $font-weight-normal;
+
+//border
+$border-radius-sm: 10px;
+$border-radius-lg: 30px;
+
+//base class variables
+$transition-base: all .4s;
+$transition-fast: all .2s ease-in-out;
+$transition: all .4s ease-in-out;
+$transition-slow: all .6s;
+
+//
+$theme-colors: $custom-colors;
+$colors: $custom-colors;

@@ -1,0 +1,46 @@
+html, body {
+    overflow-x: hidden;
+}
+p{
+    @extend .fw-light;
+}
+body {
+    direction: ltr;
+}
+
+.vh-65{
+    height: 65vh;
+}
+
+.min-vh-50{
+    min-height: 50vh;
+}
+.link-hover:hover{
+    color: $red!important;
+}
+.text-justify{
+    text-align: justify;
+}
+.object-fit{
+    object-fit: cover;
+}
+.translate-min{
+    transform: translateY(-35px);
+}
+.transparent{
+    opacity: 0.3;
+}
+.z-top{
+    z-index: 2;
+}
+.z-below{
+    z-index: 1;
+}
+
+.lazy{
+    transition: all 0.3s ease-in-out;
+}
+.lazy-slow{
+    transition: all 0.9s ease-in-out;
+}
+
