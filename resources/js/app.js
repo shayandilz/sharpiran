@@ -24,9 +24,9 @@ wow.init();
 document.addEventListener('DOMContentLoaded', function () {
 
     let btn = $('#myBtn');
-    btn.on('click', function(e) {
+    btn.on('click', function (e) {
         e.preventDefault();
-        $('html, body').animate({scrollTop:0}, '300');
+        $('html, body').animate({scrollTop: 0}, '300');
     });
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loop: true,
         // autoplay: true,
         grabCursor: true,
-        pagination:false,
+        pagination: false,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
@@ -95,8 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function () {
 
     let ajax_url = jsData.api_root
-    $(document).on('submit','.add-product', function (e) {
+    $(document).on('submit', '.add-product', function (e) {
         e.preventDefault();
+        const formId = $(this).attr('data-id');
         let endpointOrder = jsData.root_url + '/wp-json/wc/v3/orders'
         let apiDataOrder = {
             status: 'processing',
@@ -109,9 +110,20 @@ $(document).ready(function () {
                 },
             line_items: [
                 {
-                    product_id: $('#product_id').val(),
-                    quantity: $('.number').val(),
+                    product_id: formId,
+                    quantity: $(this).find('[data-product-id="' + $(this).find('#product_id').val() + '"]').val(),
+                    meta_data: [
+                        {
+                            key: 'شیوه پرداخت',
+                            value: $(this).find('[method-product-id="' + $(this).find('#product_id').val() + '"]').val(),
+                        },
+                        {
+                            key: 'مبلغ',
+                            value: $(this).find('[price-id="' + $(this).find('#product_id').val() + '"]').val()
+                        }
+                    ]
                 },
+
             ],
             customer_id: jsData.user_id
         }
@@ -124,8 +136,13 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (result) {
                 console.log(result)
+                $(this).trigger('reset');
 
+            }.bind(this),
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.responseText);
 
+                // ...handle error...
             }
         })
     })

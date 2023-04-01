@@ -17,7 +17,6 @@ get_header(); ?>
                     $pad_counts = 0;      // 1 for yes, 0 for no
                     $hierarchical = 1;      // 1 for yes, 0 for no
                     $title = '';
-                    $empty = 0;
 
                     $args = array(
                         'taxonomy' => $taxonomy,
@@ -26,7 +25,7 @@ get_header(); ?>
                         'pad_counts' => $pad_counts,
                         'hierarchical' => $hierarchical,
                         'title_li' => $title,
-                        'hide_empty' => $empty
+                        'hide_empty' => 1
                     );
                     $all_categories = get_categories($args);
                     foreach ($all_categories as $cat) {
