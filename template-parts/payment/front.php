@@ -50,7 +50,7 @@ if (is_numeric($product->get_price())) :
                    class="number form-control"/>
         </div>
         <div class="col-md-12 mt-3 ">
-            <button class="btn btn-primary w-100" type="submit">ارسال
+            <button class="btn btn-primary w-100" type="submit">پرداخت
             </button>
         </div>
     </div>

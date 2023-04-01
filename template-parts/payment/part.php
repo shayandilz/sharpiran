@@ -41,7 +41,7 @@ $monthlyPayment = ceil(($remainingBalance * $monthlyInterestRate * pow(1 + $mont
 
 // Calculate the total amount paid by the customer, including interest
 $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1.03) * 100) / 100;
-
+$lastAmount = $upfrontPayment + $totalAmountPaid;
 ?>
 <h3>پیش پرداخت<span class="badge bg-red">
         <?php echo number_format($upfrontPayment, 0); ?>
@@ -52,7 +52,7 @@ $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1
     </span>
 </h3>
 <h3>مبلغ کل پرداختی<span class="badge bg-red">
-        <?php echo number_format($totalAmountPaid, 0); ?>
+        <?php echo number_format($lastAmount, 0); ?>
     </span>
 </h3>
 
@@ -86,7 +86,7 @@ $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1
                    class="number form-control"/>
         </div>
         <div class="col-md-12 mt-3 ">
-            <button class="btn btn-primary w-100" type="submit">سفارش
+            <button class="btn btn-primary w-100" type="submit">پیش پرداخت
             </button>
         </div>
     </div>
