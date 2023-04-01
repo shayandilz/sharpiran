@@ -44,3 +44,15 @@ body {
     transition: all 0.9s ease-in-out;
 }
 
+// SCROLL bar styles
+::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+}
+::-webkit-scrollbar-track {
+    background: $white;
+}
+::-webkit-scrollbar-thumb {
+    background: $red;
+    border-radius: 0.5rem;
+}
