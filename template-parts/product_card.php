@@ -1,5 +1,7 @@
 <?php
 global $product;
+
+$product_id = get_the_ID();
 ?>
 <div class="card text-center col-3">
     <div class="position-relative">
@@ -14,11 +16,10 @@ global $product;
             <?php } ?>
         <?php endif; ?>
         <div class="ratio ratio-1x1">
-            <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($loop->post->ID), 'single-post-thumbnail'); ?>
+            <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
             <img src="<?php echo $image[0]; ?>"
                  class="card-img-top"
-                 data-id="<?php echo $loop->post->ID; ?>"
-                 alt="cat-1-product-<?= $i ?>">
+                 alt="<?php the_title(); ?>">
         </div>
     </div>
 
@@ -64,11 +65,10 @@ global $product;
             <div class="modal-body flex-row-reverse d-flex">
                 <div class="col-4">
                     <div class="ratio ratio-1x1">
-                        <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($loop->post->ID), 'single-post-thumbnail'); ?>
+                        <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
                         <img src="<?php echo $image[0]; ?>"
                              class="card-img-top"
-                             data-id="<?php echo $loop->post->ID; ?>"
-                             alt="cat-1-product-<?= $i ?>">
+                             alt="<?php the_title(); ?>">
                     </div>
                 </div>
                 <div class="col-8">
