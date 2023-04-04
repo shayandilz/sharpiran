@@ -44,19 +44,19 @@ $monthlyPayment = ceil(($remainingBalance * $monthlyInterestRate * pow(1 + $mont
 $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1.03) * 100) / 100;
 $lastAmount = $upfrontPayment + $totalAmountPaid;
 ?>
-<div class="d-flex flex-wrap g-3 align-items-center py-3 row-cols-2 row-cols-lg-3 justify-content-center justify-content-lg-start">
-    <p class="d-grid align-items-center gap-1 mb-0">پیش پرداخت :
-        <span class="mt-2 mt-lg-0 fs-4 badge bg-red mx-1">
+<div class="d-flex flex-wrap gap-lg-5 gap-2 align-items-center py-3 justify-content-evenly">
+    <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">پیش پرداخت :
+        <span class="mt-2 mt-lg-0 fs-4 badge bg-red">
         <?php echo number_format($upfrontPayment, 0); ?>
         </span>
     </p>
-    <p class="d-grid align-items-center gap-1 mb-0">قسط ماهیانه :
-        <span class="mt-2 mt-lg-0 fs-4 badge bg-red mx-1" >
+    <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">قسط ماهیانه :
+        <span class="mt-2 mt-lg-0 fs-4 badge bg-red" >
         <?php echo number_format($monthlyPayment, 0); ?>
         </span>
     </p>
-    <p class="d-grid align-items-center gap-1 mt-2 mt-lg-0 mb-0">مبلغ نهایی :
-        <span class="mt-2 mt-lg-0 fs-4 badge bg-red mx-1">
+    <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">مبلغ نهایی :
+        <span class="mt-2 mt-lg-0 fs-4 badge bg-red">
         <?php echo number_format($lastAmount, 0); ?>
         </span>
     </p>

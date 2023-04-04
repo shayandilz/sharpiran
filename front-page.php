@@ -7,7 +7,7 @@ get_header(); ?>
     <div class="container-fluid min-vh-100">
         <div class="row justify-content-center align-items-center pb-3">
             <div class="col-11 col-lg-8">
-                <ul class="nav nav-tabs flex-nowrap overflow-tab" id="myTab" role="tablist">
+                <ul class="nav nav-tabs flex-nowrap overflow-tab justify-content-center align-items-center py-3 gap-2" id="myTab" role="tablist">
                     <?php
                     $i = 0;
 
@@ -32,7 +32,7 @@ get_header(); ?>
                         if ($cat->category_parent == 0) {
                             $category_id = $cat->term_id; ?>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link <?php if ($i == 0) {
+                                <button class="category-tab rounded-circle nav-link <?php if ($i == 0) {
                                     $i = 1;
                                     echo 'active';
                                 }

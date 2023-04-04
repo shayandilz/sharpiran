@@ -35,5 +35,38 @@ header {
     padding: 6px;
   }
 }
+.desktop-menu a,
+.current-menu-item a {
+  position: relative;
+  &:hover::after,
+  {
+    transform: scaleX(1);
+    opacity: 1;
+    transform-origin: left;
+  }
+}
+.current-menu-item a::after ,
+.desktop-menu a::after {
+  transition: transform 500ms ease-out, opacity 500ms ease-out;
+  content: '';
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  margin-top: auto;
+  height: 3px;
+  border-radius: 30px;
+  bottom: -10px;
+  left: 0;
+  right:0;
+  transform: scaleX(0);
+  transform-origin: right;
+  background-color: $red;
+}
+
+.current-menu-item a,
+.desktop-menu .current-menu-item a::after {
+  transform: scaleX(1);
+  opacity: 1 !important;
+}
 
 
