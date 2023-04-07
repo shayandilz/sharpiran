@@ -49,12 +49,12 @@
         </button>
         <div class="d-none d-lg-flex align-items-center gap-2">
             <!--                search icon-->
-            <a class="fs-5 text-red" type="button"
-               data-bs-toggle="offcanvas"
-               data-bs-target="#offcanvasBottom"
-               aria-controls="offcanvasBottom">
-                <i class="bi bi-search"></i>
-            </a>
+<!--            <a class="fs-5 text-red" type="button"-->
+<!--               data-bs-toggle="offcanvas"-->
+<!--               data-bs-target="#offcanvasBottom"-->
+<!--               aria-controls="offcanvasBottom">-->
+<!--                <i class="bi bi-search"></i>-->
+<!--            </a>-->
             <!--                my acount icon-->
             <a class="w-bold text-center" href="/my-account/">
                 <i class="bi bi-person fs-3"></i>

@@ -34,49 +34,32 @@ if (is_user_logged_in()) {
     $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1.03) * 100) / 100;
     $lastAmount = $upfrontPayment + $totalAmountPaid;
     ?>
-    <div class="d-flex flex-wrap gap-lg-5 gap-2 align-items-center py-3 justify-content-evenly">
-        <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">پیش پرداخت :
-            <span class="mt-2 mt-lg-0 fs-4 badge bg-red">
-        <?php echo number_format($upfrontPayment, 0); ?>
-        </span>
-        </p>
-        <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">قسط ماهیانه :
-            <span class="mt-2 mt-lg-0 fs-4 badge bg-red">
-        <?php echo number_format($monthlyPayment, 0); ?>
-        </span>
-        </p>
-        <p class="col d-grid align-items-center gap-1 mb-0 shadow-sm pt-1">مبلغ نهایی :
-            <span class="mt-2 mt-lg-0 fs-4 badge bg-red">
-        <?php echo number_format($lastAmount, 0); ?>
-        </span>
-        </p>
-    </div>
-
-
     <form action="" class="add-product border p-3" data-id="<?= get_the_ID(); ?>"
           method="post" enctype="multipart/form-data">
         <div class="row g-3 mb-3">
             <!-- HTML code for the range meter -->
             <!-- HTML code for the range meter and payment details -->
             <div class="form-group">
-                <label for="payment-range">Select payment plan:</label>
+                <label for="payment-range">روش های بازپرداخت</label>
                 <input type="range" class="form-range" id="payment-range" value="0" min="1" max="3" step="1">
             </div>
-            <div class="mb-3">
-                <label for="upfront-payment" class="form-label">پیش پرداخت</label>
-                <input type="text" class="form-control" id="upfront-payment" value readonly>
+            <div class="d-flex flex-wrap flex-lg-nowrap gap-lg-3 gap-2 align-items-center justify-content-evenly">
+                <div class="mb-3 shadow-sm col-lg col-12">
+                    <label for="upfront-payment" class="form-label">پیش پرداخت</label>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="upfront-payment" value readonly>
+                </div>
+                <div class="mb-3 shadow-sm col-lg col-12">
+                    <label for="interest-payment" class="form-label">سود اقساط</label>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="interest-payment" value readonly>
+                </div>
+                <div class="mb-3 shadow-sm col-lg col-12">
+                    <label for="total-payment" class="form-label">مبلغ قسط</label>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="total-payment" value readonly>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="interest-payment" class="form-label">سود اقساط</label>
-                <input type="text" class="form-control" id="interest-payment" value readonly>
-            </div>
-            <div class="mb-3">
-                <label for="total-payment" class="form-label">مبلغ قسط</label>
-                <input type="text" class="form-control" id="total-payment" value readonly>
-            </div>
-            <div class="mb-3">
-                <label for="total-payment" class="form-label">مبلغ نهایی</label>
-                <input type="text" class="form-control" id="last-payment" value readonly>
+                <label for="total-payment" class="form-label fw-bolder fs-4">مبلغ نهایی</label>
+                <input type="text" class="form-control bg-red text-white text-center fs-5" id="last-payment" value readonly>
             </div>
 
             <input type="text" value="<?= $totalAmountDue; ?>" id="totalAmount" hidden>

@@ -268,3 +268,19 @@
     }
   }
 }
+p.rangeLabel {
+  font-family: "Arial", sans-serif;
+  padding: 5px;
+  margin: 5px 0;
+  background: rgb(136,136,136);
+  font-size: 15px;
+  &.selected {
+    background-color: rgb(8, 173, 8);
+    color: rgb(255,255,255);
+  }
+  &:hover {
+    background-color: rgb(3, 82, 3);
+    color: #fff;
+    cursor: pointer;
+  }
+}

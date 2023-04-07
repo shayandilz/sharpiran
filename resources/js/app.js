@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         upfrontPayment.value = upfrontPaymentValue;
         interestPayment.value = interestPaymentValue;
-        totalPayment.value = totalPaymentValue;
+        totalPayment.value = Math.round(totalPaymentValue);
         lastPayment.value = last;
     };
 
@@ -96,9 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
-
-
-    let ajax_url = jsData.api_root
+      let ajax_url = jsData.api_root
     $(document).on('submit', '.add-product', function (e) {
         e.preventDefault();
         const formId = $(this).attr('data-id');
