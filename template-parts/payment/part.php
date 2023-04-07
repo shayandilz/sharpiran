@@ -34,35 +34,36 @@ if (is_user_logged_in()) {
     $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1.03) * 100) / 100;
     $lastAmount = $upfrontPayment + $totalAmountPaid;
     ?>
-    <form action="" class="add-product border p-3" data-id="<?= get_the_ID(); ?>"
+    <form action="" class="add-product border p-3" data-id="<?= get_the_ID(); ?>" id="form-<?= get_the_ID(); ?>"
           method="post" enctype="multipart/form-data">
         <div class="row g-3 mb-3">
             <!-- HTML code for the range meter -->
             <!-- HTML code for the range meter and payment details -->
             <div class="form-group">
                 <label for="payment-range">روش های بازپرداخت</label>
-                <input type="range" class="form-range" id="payment-range" value="0" min="1" max="3" step="1">
+                <input type="range" class="form-range" oninput="calculatePayments('form-<?= get_the_ID(); ?>')" id="payment-range-<?= get_the_ID(); ?> anotherID" value="0" min="1" max="3" step="1">
             </div>
+
             <div class="d-flex flex-wrap flex-lg-nowrap gap-lg-3 gap-2 align-items-center justify-content-evenly">
                 <div class="mb-3 shadow-sm col-lg col-12">
                     <label for="upfront-payment" class="form-label">پیش پرداخت</label>
-                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="upfront-payment" value readonly>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="upfront-payment-<?= get_the_ID(); ?>" value readonly>
                 </div>
                 <div class="mb-3 shadow-sm col-lg col-12">
                     <label for="interest-payment" class="form-label">سود اقساط</label>
-                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="interest-payment" value readonly>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="interest-payment-<?= get_the_ID(); ?>" value readonly>
                 </div>
                 <div class="mb-3 shadow-sm col-lg col-12">
                     <label for="total-payment" class="form-label">مبلغ قسط</label>
-                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="total-payment" value readonly>
+                    <input type="text" class="form-control bg-red text-white text-center fs-5" id="total-payment-<?= get_the_ID(); ?>" value readonly>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="total-payment" class="form-label fw-bolder fs-4">مبلغ نهایی</label>
-                <input type="text" class="form-control bg-red text-white text-center fs-5" id="last-payment" value readonly>
+                <input type="text" class="form-control bg-red text-white text-center fs-5" id="last-payment-<?= get_the_ID(); ?>" value readonly>
             </div>
 
-            <input type="text" value="<?= $totalAmountDue; ?>" id="totalAmount" hidden>
+            <input type="text" value="<?= $totalAmountDue; ?>" id="totalAmount-<?= get_the_ID(); ?>" hidden>
             <div class="col-md-4 form-floating">
                 <!--        First Name        -->
                 <input disabled

@@ -9,11 +9,14 @@ import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', function () {
 
+
+
     // JavaScript code to update payment amounts based on range meter selection
     let totalAmount = document.getElementById('totalAmount').value;
 
     // JavaScript code to update payment amounts and total amount based on range meter selection
     const rangeMeter = document.getElementById('payment-range');
+
     const upfrontPayment = document.getElementById('upfront-payment');
     const interestPayment = document.getElementById('interest-payment');
     const totalPayment = document.getElementById('total-payment');
