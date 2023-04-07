@@ -28,6 +28,8 @@ add_action( 'wp_enqueue_scripts', 'amaco_scripts' );
 add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
 
+add_filter( 'https_ssl_verify', '__return_false' );
+add_filter( 'https_local_ssl_verify', '__return_false' );
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -127,45 +129,114 @@ function wpd_get_menu_item( $field, $object_id, $items ) {
 	return false;
 }
 
-/*--Offset Pre_Get_Posts pagination fix--*/
-//add_action('pre_get_posts', 'myprefix_query_offset', 1 );
-//function myprefix_query_offset(&$query) {
-//
-//	if ( $query->is_home() && ! $query->is_main_query() ) {
-//		return;
-//	}
-//
-//	$offset = 3;
-//
-//	$ppp = get_option('posts_per_page');
-//
-//	if ( $query->is_paged ) {
-//
-//		$page_offset = $offset + ( ($query->query_vars['paged']-1) * $ppp );
-//
-//		$query->set('offset', $page_offset );
-//
-//	}
-//	else {
-//
-//		if ( $query->is_home() && $query->is_main_query() ) {
-//			$query->set('offset',$offset);
-//		}
-//
-//	}
-//}
+// Add custom field to My Account page
+add_action( 'woocommerce_edit_account_form', 'add_custom_field_to_my_account' );
+function add_custom_field_to_my_account() {
+    woocommerce_form_field(
+        'user_identity', // Field ID
+        array(
+            'type'        => 'text',
+            'label'       => __( ' شماره شناسنامه', 'woocommerce' ),
+            'placeholder' => __( 'شماره شناسنامه خود را وارد کنید', 'woocommerce' ),
+            'required'    => false,
+            'class'       => array( 'form-row-wide' ),
+            'clear'       => true,
+        ),
+        get_user_meta( get_current_user_id(), 'user_identity', true ) // Default value
+    );
+    woocommerce_form_field(
+        'user_code', // Field ID
+        array(
+            'type'        => 'text',
+            'label'       => __( 'کد ملی', 'woocommerce' ),
+            'placeholder' => __( 'کد ملی خود را وارد کنید', 'woocommerce' ),
+            'required'    => false,
+            'class'       => array( 'form-row-wide' ),
+            'clear'       => true,
+        ),
+        get_user_meta( get_current_user_id(), 'user_code', true ) // Default value
+    );
+}
 
-//add_filter('found_posts', 'myprefix_adjust_offset_pagination', 1, 2 );
-//function myprefix_adjust_offset_pagination($found_posts, $query) {
-//
-//	$offset = 3;
-//
-//	if ( $query->is_home()  ) {
-//		return $found_posts - $offset;
-//	}
-//	return $found_posts;
-//}
+// Save custom field value
+add_action( 'woocommerce_save_account_details', 'save_custom_field_from_my_account', 10, 1 );
+function save_custom_field_from_my_account( $user_id ) {
+    if ( isset( $_POST['user_identity'] ) ) {
+        update_user_meta( $user_id, 'user_identity', sanitize_text_field( $_POST['user_identity'] ) );
+    }if ( isset( $_POST['user_code'] ) ) {
+        update_user_meta( $user_id, 'user_code', sanitize_text_field( $_POST['user_code'] ) );
+    }
+}
+// Add custom field data to order meta data
+add_filter( 'woocommerce_rest_insert_shop_order_object', 'add_custom_field_to_order_meta_data', 10, 3 );
+function add_custom_field_to_order_meta_data( $order, $request, $creating ) {
+    $user_id = $order->get_customer_id();
+    if ( $user_id ) {
+        $custom_field_identity = get_user_meta( $user_id, 'user_identity', true );
+        if ( $custom_field_identity ) {
+            $order->add_meta_data( 'user_identity', $custom_field_identity, true );
+        }
 
+        $custom_field_code = get_user_meta( $user_id, 'user_code', true );
+        if ( $custom_field_code ) {
+            $order->add_meta_data( 'user_code', $custom_field_code, true );
+        }
+    }
+    return $order;
+}
+// Add custom field to order details in WooCommerce admin dashboard
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'add_custom_field_to_order_details', 10, 1 );
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'add_custom_field_to_order_details', 10, 1 );
+function add_custom_field_to_order_details( $order ) {
+    $user_id = $order->get_customer_id();
+    if ( $user_id ) {
+        $custom_field_identity = get_user_meta( $user_id, 'user_identity', true );
+        if ( $custom_field_identity ) {
+            echo '<p><strong>'.__( ' شماره شناسنامه', 'woocommerce' ).':</strong> '.$custom_field_identity.'</p>';
+        }
+
+        $custom_field_code = get_user_meta( $user_id, 'user_code', true );
+        if ( $custom_field_code ) {
+            echo '<p><strong>'.__( 'کد ملی', 'woocommerce' ).':</strong> '.$custom_field_code.'</p>';
+        }
+    }
+}
+// Add first name, last name, and mobile number fields to WooCommerce register form
+add_action( 'woocommerce_register_form', 'add_custom_fields_to_registration_form' );
+function add_custom_fields_to_registration_form() {
+    ?>
+    <p class="form-row form-row-first">
+        <label for="first_name"><?php _e( 'First name', 'woocommerce' ); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="first_name" id="first_name" value="<?php if ( ! empty( $_POST['first_name'] ) ) echo esc_attr( $_POST['first_name'] ); ?>" required />
+    </p>
+    <p class="form-row form-row-last">
+        <label for="last_name"><?php _e( 'Last name', 'woocommerce' ); ?><span class="required">*</span></label>
+        <input type="text" class="input-text" name="last_name" id="last_name" value="<?php if ( ! empty( $_POST['last_name'] ) ) echo esc_attr( $_POST['last_name'] ); ?>" required />
+    </p>
+    <div class="clear"></div>
+    <p class="form-row form-row-wide">
+        <label for="mobile_number"><?php _e( 'Mobile number', 'woocommerce' ); ?><span class="required">*</span></label>
+        <input type="tel" class="input-text" name="mobile_number" id="mobile_number" value="<?php if ( ! empty( $_POST['mobile_number'] ) ) echo esc_attr( $_POST['mobile_number'] ); ?>" required />
+    </p>
+    <?php
+}
+
+// Save first name, last name, and mobile number fields to user meta data
+add_action( 'woocommerce_created_customer', 'save_custom_fields_to_user_meta_data' );
+function save_custom_fields_to_user_meta_data( $customer_id ) {
+    if ( isset( $_POST['first_name'] ) ) {
+        update_user_meta( $customer_id, 'first_name', sanitize_text_field( $_POST['first_name'] ) );
+        wc_add_notice( __( 'First name added.', 'woocommerce' ), 'success' );
+    }
+    if ( isset( $_POST['last_name'] ) ) {
+        update_user_meta( $customer_id, 'last_name', sanitize_text_field( $_POST['last_name'] ) );
+        wc_add_notice( __( 'Last name added.', 'woocommerce' ), 'success' );
+    }
+    if ( isset( $_POST['mobile_number'] ) ) {
+        update_user_meta( $customer_id, 'mobile_number', sanitize_text_field( $_POST['mobile_number'] ) );
+        wc_add_notice( __( 'Mobile number added.', 'woocommerce' ), 'success' );
+    }
+}
 
 function the_breadcrumb() {
 	global $post;
