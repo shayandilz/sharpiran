@@ -99,6 +99,14 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
+    $(window).scroll(function () { // check if scroll event happened
+        if ($(document).scrollTop() > 30) { // check if user scrolled more than 50 from top of the browser window
+            $('.sticky__nav').addClass('position-fixed top-0 shadow-sm');
+        }
+        else if ($(document).scrollTop() < 30) {
+            $('.sticky__nav').removeClass('position-fixed top-0 shadow-sm');
+        }
+    })
       let ajax_url = jsData.api_root
     $(document).on('submit', '.add-product', function (e) {
         e.preventDefault();

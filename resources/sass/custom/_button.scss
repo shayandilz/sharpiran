@@ -77,3 +77,9 @@
         border: 1px solid $red;
     }
 }
+.list-group-item-action{
+    &.is-active , &:active {
+        background-color:$primary!important;
+        color: white!important;
+    }
+}

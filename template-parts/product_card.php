@@ -3,8 +3,7 @@ global $product;
 
 $product_id = get_the_ID();
 ?>
-<div class="card text-center border-1">
-    <div class="position-relative">
+<div class="card text-center border-1 product-card">
         <?php if (is_numeric($product->get_price())) : ?>
             <?php if (!$product->is_type('variable')) {
                 $regular_price = (float)$product->get_regular_price(); // Regular price
@@ -21,15 +20,13 @@ $product_id = get_the_ID();
                  class="card-img-top"
                  alt="<?php the_title(); ?>">
         </div>
-    </div>
-
-
     <div class="card-body">
         <h6 class="card-title">
             <!-- Button trigger modal -->
-            <a data-bs-toggle="modal" data-bs-target="#modal-<?= get_the_ID(); ?>" type="button" href="#"
-               class="stretched-link btn btn-addToCard"><?php the_title(); ?></a>
+            <?php the_title(); ?>
         </h6>
+        <a data-bs-toggle="modal" data-bs-target="#modal-<?= get_the_ID(); ?>" type="button" href="#"
+           class="stretched-link btn btn-addToCard">ثبت سفارش</a>
         <p class="card-text">
             <?php
             if (is_numeric($product->get_price())) :
@@ -47,7 +44,6 @@ $product_id = get_the_ID();
                         . number_format($product->get_variation_regular_price([$min_or_max = 'max'][$for_display = false]));
                 }
                 ?>
-
                 <span class="text-primary ms-1">تومان</span>
             <?php endif; ?>
         </p>

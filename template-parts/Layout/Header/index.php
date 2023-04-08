@@ -1,6 +1,10 @@
-<nav class="navbar navbar-light navbar-expand-lg sticky-top mb-1 py-2 border-bottom border-red border-1 shadow-sm">
+<nav class="sticky__nav navbar navbar-light navbar-expand-lg bg-white start-0 end-0 z-10 mb-1 py-2 border-bottom border-red border-1 shadow-sm">
     <div class="container">
-        <a class="navbar-brand me-5" href="/">شارپ ایران</a>
+        <a class="navbar-brand me-5" href="/">
+            <img width="40" height="40" src="<?= get_field('logo', 'option')['url']; ?>"
+                 alt="<?= get_field('site-title', 'option'); ?>">
+            <?= get_field('site-title', 'option'); ?>
+        </a>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header bg-red text-white">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">شارپ ایران</h5>
@@ -49,12 +53,12 @@
         </button>
         <div class="d-none d-lg-flex align-items-center gap-2">
             <!--                search icon-->
-<!--            <a class="fs-5 text-red" type="button"-->
-<!--               data-bs-toggle="offcanvas"-->
-<!--               data-bs-target="#offcanvasBottom"-->
-<!--               aria-controls="offcanvasBottom">-->
-<!--                <i class="bi bi-search"></i>-->
-<!--            </a>-->
+            <!--            <a class="fs-5 text-red" type="button"-->
+            <!--               data-bs-toggle="offcanvas"-->
+            <!--               data-bs-target="#offcanvasBottom"-->
+            <!--               aria-controls="offcanvasBottom">-->
+            <!--                <i class="bi bi-search"></i>-->
+            <!--            </a>-->
             <!--                my acount icon-->
             <a class="w-bold text-center" href="/my-account/">
                 <i class="bi bi-person fs-3"></i>
@@ -74,7 +78,7 @@
               method="get"
               action="<?php echo esc_url(home_url('/')); ?>">
             <div class="input-group">
-<!--                ---><?//= $args['place'] ?>
+                <!--                ---><? //= $args['place'] ?>
                 <input id="search-form" type="search" name="s"
                        class="s form-control fs-5"
                        placeholder="جستجو"

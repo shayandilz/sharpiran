@@ -23,13 +23,12 @@ do_action( 'woocommerce_before_account_navigation' );
 ?>
 
     <nav class="woocommerce-MyAccount-navigation w-100 float-none widget">
-        <ul class="list-unstyled sidebar-nav p-0" id="navmenu-nav">
+        <div class="list-group" id="navmenu-nav">
             <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
-                <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?> navbar-item account-menu px-0">
-                    <a class="navbar-link d-flex rounded shadow align-items-center py-2 px-4" href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
-                </li>
+                    <a class="list-group-item list-group-item-action <?php echo wc_get_account_menu_item_classes($endpoint); ?> "
+                href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </nav>
 
 <?php do_action( 'woocommerce_after_account_navigation' ); ?>

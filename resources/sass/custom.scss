@@ -284,3 +284,11 @@ p.rangeLabel {
     cursor: pointer;
   }
 }
+.product-card {
+  cursor: pointer;
+  transition: all 0.5s;
+  &:hover {
+    border-color: $primary;
+    @extend .shadow-sm
+  }
+}

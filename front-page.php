@@ -6,7 +6,7 @@ get_header(); ?>
     the_post(); ?>
     <div class="container-fluid min-vh-100">
         <div class="row justify-content-center align-items-center pb-3">
-            <div class="col-11 col-lg-8">
+            <div class="col-11">
                 <ul class="nav nav-tabs flex-nowrap overflow-tab justify-content-center align-items-center py-3 gap-2" id="myTab" role="tablist">
                     <?php
                     $i = 0;
@@ -75,7 +75,7 @@ get_header(); ?>
                             );
                             $loop = new WP_Query($args);
                             if ($loop->have_posts()) {?>
-                                <div class="row row-cols-lg-3 row-cols-1">
+                                <div class="row row-cols-lg-4 row-cols-2">
                                 <?php while ($loop->have_posts()) : $loop->the_post();
                                     get_template_part('template-parts/product_card');
                                 endwhile;

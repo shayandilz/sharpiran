@@ -68,5 +68,8 @@ header {
   transform: scaleX(1);
   opacity: 1 !important;
 }
-
+.sticky__nav {
+  top: -100%;
+  transition: top  0.8s ease-in-out;
+}
 
