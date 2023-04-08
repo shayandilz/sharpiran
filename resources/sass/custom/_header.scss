@@ -82,6 +82,9 @@ header {
   line-height: 2.4;
   transform: translateX(-200%);
   opacity: 0;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 .intro {
   animation: intro 800ms ease-out forwards;
