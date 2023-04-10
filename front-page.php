@@ -7,7 +7,8 @@ get_header(); ?>
     <div class="container-fluid min-vh-100">
         <div class="row justify-content-center align-items-center pb-3">
             <div class="col-11">
-                <ul class="nav nav-tabs flex-nowrap overflow-tab justify-content-center align-items-center py-3 gap-2" id="myTab" role="tablist">
+                <ul class="nav nav-tabs flex-nowrap overflow-tab justify-content-center align-items-center py-3 gap-2"
+                    id="myTab" role="tablist">
                     <?php
                     $i = 0;
 
@@ -30,7 +31,10 @@ get_header(); ?>
                     $all_categories = get_categories($args);
                     foreach ($all_categories as $cat) {
                         if ($cat->category_parent == 0) {
-                            $category_id = $cat->term_id; ?>
+                            $category_id = $cat->term_id;
+                            $thumbnail_id = get_term_meta($category_id, 'thumbnail_id', true);
+                            $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
+                            ?>
                             <li class="nav-item" role="presentation">
                                 <button class="category-tab rounded-circle nav-link <?php if ($i == 0) {
                                     $i = 1;
@@ -40,7 +44,12 @@ get_header(); ?>
                                         data-bs-target="#cat-<?= $category_id; ?>" type="button" role="tab"
                                         aria-controls="cat-<?= $category_id; ?>"
                                         aria-selected="true">
-                                    <?= $cat->name; ?>
+                                    <?php if ($thumbnail_id) { ?>
+                                        <img class="w-100" title="<?php echo $cat->name; ?>"
+                                             src="<?php echo $thumbnail_url; ?>" alt="<?php echo $cat->name; ?>">
+                                    <?php } else {
+                                        echo $cat->name;
+                                    } ?>
                                 </button>
                             </li>
 
@@ -56,7 +65,8 @@ get_header(); ?>
                         <div class="tab-pane fade <?php if ($key == 0) {
                             echo 'show active';
                         }
-                        ?>" id="cat-<?= $category_id; ?>" role="tabpanel" aria-labelledby="cat-<?= $category_id; ?>-tab">
+                        ?>" id="cat-<?= $category_id; ?>" role="tabpanel"
+                             aria-labelledby="cat-<?= $category_id; ?>-tab">
                             <?php
 
                             $args = array(
@@ -74,13 +84,13 @@ get_header(); ?>
                                 )
                             );
                             $loop = new WP_Query($args);
-                            if ($loop->have_posts()) {?>
-                                <div class="row row-cols-lg-4 row-cols-2">
+                            if ($loop->have_posts()) { ?>
+                            <div class="row row-cols-lg-4 row-cols-2">
                                 <?php while ($loop->have_posts()) : $loop->the_post();
                                     get_template_part('template-parts/product_card');
                                 endwhile;
-                            }?>
-                                </div>
+                                } ?>
+                            </div>
                             <?php wp_reset_postdata();
 
                             ?>

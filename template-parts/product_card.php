@@ -4,22 +4,22 @@ global $product;
 $product_id = get_the_ID();
 ?>
 <div class="card text-center border-1 product-card">
-        <?php if (is_numeric($product->get_price())) : ?>
-            <?php if (!$product->is_type('variable')) {
-                $regular_price = (float)$product->get_regular_price(); // Regular price
-                $sale_price = (float)$product->get_price(); // Active price (the "Sale price" when on-sale)
-                ?>
-                <span class="badge bg-primary position-absolute end-0 bottom-0 z-index-10">%
+    <?php if (is_numeric($product->get_price())) : ?>
+        <?php if (!$product->is_type('variable')) {
+            $regular_price = (float)$product->get_regular_price(); // Regular price
+            $sale_price = (float)$product->get_price(); // Active price (the "Sale price" when on-sale)
+            ?>
+            <span class="badge bg-primary position-absolute end-0 bottom-0 z-index-10">%
                 <?= $saving_percentage = ceil(round(100 - ($sale_price / $regular_price * 100), 1)) ?>
             </span>
-            <?php } ?>
-        <?php endif; ?>
-        <div class="ratio ratio-1x1">
-            <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
-            <img src="<?php echo $image[0]; ?>"
-                 class="card-img-top"
-                 alt="<?php the_title(); ?>">
-        </div>
+        <?php } ?>
+    <?php endif; ?>
+    <div class="ratio ratio-1x1">
+        <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
+        <img src="<?php echo $image[0]; ?>"
+             class="card-img-top"
+             alt="<?php the_title(); ?>">
+    </div>
     <div class="card-body">
         <h6 class="card-title">
             <!-- Button trigger modal -->
@@ -58,13 +58,52 @@ $product_id = get_the_ID();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body flex-row-reverse d-flex flex-wrap">
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-4 pb-3 pb-lg-4">
                         <div class="ratio ratio-1x1">
                             <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
                             <img src="<?php echo $image[0]; ?>"
                                  class="card-img-top"
                                  alt="<?php the_title(); ?>">
                         </div>
+                        <table class="col-11 mx-auto px-3">
+                               <tbody>
+                            <?php
+                            global $product;
+
+                            // Get product attributes
+                            $attributes = $product->get_attributes();
+
+                            foreach ( $attributes as $attribute ) {
+                                if ( $attribute->get_visible() ) {
+                                    echo '<tr class="row row-cols-2">';
+                                    echo '<th class="border py-2">' . $attribute->get_name() . '</th>';
+                                    echo '<td class="border py-2">';
+
+                                    if ( $attribute->is_taxonomy() ) {
+                                        // For attributes with taxonomy, get the terms
+                                        $attribute_taxonomy = $attribute->get_taxonomy();
+                                        $attribute_terms = wp_get_post_terms( $product->get_id(), $attribute_taxonomy );
+
+                                        foreach ( $attribute_terms as $term ) {
+                                            echo  $term->name ;
+                                        }
+                                    } else {
+                                        // For attributes without taxonomy, get the values
+                                        $attribute_values = $attribute->get_options();
+
+                                        foreach ( $attribute_values as $value ) {
+                                            echo  $value ;
+                                        }
+                                    }
+
+                                    echo '</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+
                     </div>
                     <div class="col-12 col-lg-8 p-lg-3 p-1">
                         <div class="d-flex justify-content-between">
@@ -94,32 +133,38 @@ $product_id = get_the_ID();
                             </p>
 
                         </div>
-                        <ul class="nav nav-pills my-3 justify-content-center justify-content-lg-start mb-lg-3"
-                            id="pills-tab" role="tablist">
-                            <li class="nav-item shadow-sm" role="presentation">
-                                <button class="nav-link active" id="pills-part-tab-<?= get_the_ID(); ?>"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-part-<?= get_the_ID(); ?>" type="button" role="tab"
-                                        aria-controls="pills-part-<?= get_the_ID(); ?>" aria-selected="true">قسطی
-                                </button>
-                            </li>
-                            <li class="nav-item shadow-sm" role="presentation">
-                                <button class="nav-link" id="pills-front-tab-<?= get_the_ID(); ?>" data-bs-toggle="pill"
-                                        data-bs-target="#pills-front-<?= get_the_ID(); ?>" type="button" role="tab"
-                                        aria-controls="pills-front-<?= get_the_ID(); ?>" aria-selected="false">نقدی
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-part-<?= get_the_ID(); ?>" role="tabpanel"
-                                 aria-labelledby="pills-part-tab-<?= get_the_ID(); ?>" tabindex="0">
-                                <?php get_template_part('template-parts/payment/part'); ?>
+                        <?php if (is_user_logged_in()) { ?>
+                            <ul class="nav nav-pills my-3 justify-content-center justify-content-lg-start mb-lg-3"
+                                id="pills-tab" role="tablist">
+                                <li class="nav-item shadow-sm" role="presentation">
+                                    <button class="nav-link active" id="pills-part-tab-<?= get_the_ID(); ?>"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#pills-part-<?= get_the_ID(); ?>" type="button" role="tab"
+                                            aria-controls="pills-part-<?= get_the_ID(); ?>" aria-selected="true">قسطی
+                                    </button>
+                                </li>
+                                <li class="nav-item shadow-sm" role="presentation">
+                                    <button class="nav-link" id="pills-front-tab-<?= get_the_ID(); ?>"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#pills-front-<?= get_the_ID(); ?>" type="button" role="tab"
+                                            aria-controls="pills-front-<?= get_the_ID(); ?>" aria-selected="false">نقدی
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-part-<?= get_the_ID(); ?>"
+                                     role="tabpanel"
+                                     aria-labelledby="pills-part-tab-<?= get_the_ID(); ?>" tabindex="0">
+                                    <?php get_template_part('template-parts/payment/part'); ?>
+                                </div>
+                                <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
+                                     aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="0">
+                                    <?php get_template_part('template-parts/payment/front'); ?>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
-                                 aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="0">
-                                <?php get_template_part('template-parts/payment/front'); ?>
-                            </div>
-                        </div>
+                        <?php } else {
+                            echo do_shortcode('[woocommerce_my_account]');
+                        } ?>
                     </div>
                 </div>
             </div>

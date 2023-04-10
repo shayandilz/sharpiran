@@ -14,7 +14,9 @@ header {
   border-radius: 30px 0px 0px 30px;
   padding: 0px 150px 0px 0px;
 }
-
+header{
+  min-height: 70px;
+}
 .scrolled {
   header {
     background: white;

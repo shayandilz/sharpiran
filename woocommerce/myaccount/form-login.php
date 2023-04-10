@@ -31,15 +31,15 @@ do_action('woocommerce_before_customer_login_form'); ?>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="<?= !is_front_page() ? 'col-lg-6': '';?> col-12">
-                    <ul class="track-tab nav nav-tabs border-0 gap-1 justify-content-center" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
+                    <ul class="nav nav-pills my-3 justify-content-center mb-lg-3" id="myTab" role="tablist">
+                        <li class="nav-item shadow-sm" role="presentation">
                             <button class="nav-link nav-link active" id="home-tab" data-bs-toggle="tab"
                                     data-bs-target="#home" type="button" role="tab" aria-controls="home"
                                     aria-selected="true">
                                 ورود
                             </button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item shadow-sm" role="presentation">
                             <button class="nav-link nav-link" id="profile-tab" data-bs-toggle="tab"
                                     data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
                                     aria-selected="false">

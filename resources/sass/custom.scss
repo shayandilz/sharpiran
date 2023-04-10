@@ -285,7 +285,6 @@ p.rangeLabel {
   }
 }
 .product-card {
-  cursor: pointer;
   transition: all 0.5s;
   &:hover {
     border-color: $primary;

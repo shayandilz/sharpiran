@@ -105,7 +105,7 @@ $(document).ready(function () {
             $('.backTo_Top').removeClass('outro');
             $('.backTo_Top').addClass('intro');
         }
-        else if ($(document).scrollTop() < 30) {
+        else if ($(document).scrollTop() == 0) {
             $('.sticky__nav').removeClass('position-fixed top-0 shadow-sm');
             $('.backTo_Top').addClass('outro');
             $('.backTo_Top').removeClass('intro');
