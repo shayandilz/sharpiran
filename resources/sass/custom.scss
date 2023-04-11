@@ -304,6 +304,7 @@ p.rangeLabel {
 .product-card {
   border: 2px solid transparent;
   transition: all 0.5s;
+
   &:hover {
     border-top-color: $red;
     border-bottom-color: $red;
@@ -313,8 +314,22 @@ p.rangeLabel {
 
 tr {
   transition: all 0.7s;
+
   &:hover {
-      background: $red;
-      color: white;
+    background: $red;
+    color: white;
   }
+}
+
+.contact-us__form {
+  > input {
+    &:has([type=email] , [type=tel]) {
+      direction: ltr;
+    }
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
 }

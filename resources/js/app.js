@@ -99,6 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
+    console.log($(window).width() )
+    if ($(window).width() < 960 ) {
+        $('.contact-us__form .form-floating').addClass('col-12');
+    }
+    else if ($(window).width() > 960 ) {
+        $('.contact-us__form .form-floating').removeClass('col-12');
+    };
     $(window).scroll(function () { // check if scroll event happened
         if ($(document).scrollTop() > 30) { // check if user scrolled more than 50 from top of the browser window
             $('.sticky__nav').addClass('position-fixed top-0 shadow-sm');
