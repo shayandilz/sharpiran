@@ -28,7 +28,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
     <div class="u-column1 col-1">
 
         <?php endif; ?>
-        <div class="container">
+        <div class="container px-0">
             <div class="row justify-content-center">
                 <div class="<?= !is_front_page() ? 'col-lg-6': '';?> col-12">
                     <ul class="nav nav-pills my-3 justify-content-center mb-lg-3" id="myTab" role="tablist">

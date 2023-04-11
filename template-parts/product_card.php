@@ -10,9 +10,9 @@ $product_id = get_the_ID();
                 $regular_price = (float)$product->get_regular_price(); // Regular price
                 $sale_price = (float)$product->get_price(); // Active price (the "Sale price" when on-sale)
                 ?>
-                <span class="badge bg-primary position-absolute end-0 bottom-0 z-index-10">%
-                <?= $saving_percentage = ceil(round(100 - ($sale_price / $regular_price * 100), 1)) ?>
-            </span>
+<!--                <span class="badge bg-primary position-absolute end-0 bottom-0 z-index-10">%-->
+<!--                --><?//= $saving_percentage = ceil(round(100 - ($sale_price / $regular_price * 100), 1)) ?>
+<!--            </span>-->
             <?php } ?>
         <?php endif; ?>
         <div class="ratio ratio-1x1">
@@ -67,7 +67,7 @@ $product_id = get_the_ID();
                                      class="card-img-top"
                                      alt="<?php the_title(); ?>">
                             </div>
-                            <table class="col-11 mx-auto px-3">
+                            <table class="col-11 mx-auto px-3 mt-2 mt-lg-0">
                                 <tbody>
                                 <?php
                                 global $product;
