@@ -43,7 +43,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                             <button class="nav-link nav-link" id="profile-tab" data-bs-toggle="tab"
                                     data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
                                     aria-selected="false">
-                                ثبت نام
+                                عضویت
                             </button>
                         </li>
                     </ul>
@@ -84,7 +84,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                         </label>
                                         <?php wp_nonce_field('woocommerce-login', 'woocommerce-login-nonce'); ?>
                                         <button type="submit"
-                                                class="btn btn-primary woocommerce-button button rounded woocommerce-form-login__submit<?php echo
+                                                class="btn bg-red text-white woocommerce-button button rounded woocommerce-form-login__submit<?php echo
                                                 esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?>"
                                                 name="login"
                                                 value="<?php esc_attr_e('Log in', 'woocommerce'); ?>"><?php esc_html_e('Log in', 'woocommerce'); ?></button>
@@ -153,7 +153,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                     <p class="woocommerce-form-row form-row">
                                         <?php wp_nonce_field('woocommerce-register', 'woocommerce-register-nonce'); ?>
                                         <button type="submit"
-                                                class="woocommerce-Button btn-primary woocommerce-button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?> woocommerce-form-register__submit"
+                                                class="woocommerce-Button btn bg-red text-white woocommerce-button button<?php echo esc_attr(wc_wp_theme_get_element_class_name('button') ? ' ' . wc_wp_theme_get_element_class_name('button') : ''); ?> woocommerce-form-register__submit"
                                                 name="register"
                                                 value="<?php esc_attr_e('Register', 'woocommerce'); ?>"><?php esc_html_e('Register', 'woocommerce'); ?></button>
                                     </p>

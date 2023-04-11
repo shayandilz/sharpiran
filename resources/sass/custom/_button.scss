@@ -14,12 +14,16 @@
     cursor: pointer;
     user-select: none;
     background-color: transparent;
+    transition: all 0.5s;
     border: $btn-border-width solid $body-text;
     @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
-    @include transition($btn-transition);
-    outline: 0 !important;
+    //@include transition($btn-transition);
+    outline: 2px solid $red!important;
     min-height: 41px;
     max-height: 56px;
+    &:is(:hover , :focus){
+        outline-offset: 3px;
+    }
 
     &:disabled,
     &.disabled,

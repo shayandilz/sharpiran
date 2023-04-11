@@ -6,7 +6,6 @@
 //@import "custom/button";
 @import "custom/variables";
 
-
 // Bootstrap
 @import 'modules/bootstrap';
 
@@ -30,6 +29,7 @@
 //custom title
 .line-before {
   padding-left: 70px;
+
   &:before {
     content: '';
     position: absolute;
@@ -167,14 +167,20 @@
 }
 
 .nav-tabs:not(.custom-tab) .category-tab {
-  width:100px;
-  height: 100px;
+  width: 100px;
+  height: 70px;
   border: 2px solid transparent;
   box-shadow: 0 0 3px #97969666;
 }
-.nav-tabs:not(.custom-tab) .category-tab.active {
 
-  border-color:$red !important;
+.category-tab {
+  img {
+    filter: grayscale(1);
+  }
+
+  &.active img {
+    filter: grayscale(0);
+  }
 }
 
 .custom-tab {
@@ -220,18 +226,21 @@
     }
   }
 }
+
 //category tab
 .overflow-tab {
   overflow-x: scroll;
   overflow-y: clip;
 }
+
 .btn-addToCard {
   position: relative;
   overflow: hidden;
   color: $white;
   background-color: $red;
-  border: 0!important;
+  border: 0 !important;
   transition: color 0.5s;
+
   &:after {
     @extend .fs-4, .pt-1;
     background-color: $red;
@@ -248,46 +257,64 @@
 
   &:hover {
     color: $red;
+
     &:after {
       color: $white;
       top: 0;
     }
   }
 }
+
 .about-us-form {
-  input{
-    @extend .rounded-1 , .border-0
+  input {
+    @extend .rounded-1, .border-0
   }
+
   input[type=submit] {
     @extend .btn ;
     background-color: black;
     color: white;
+
     &:hover {
       @extend .shadow-sm ;
       color: $red;
     }
   }
 }
+
 p.rangeLabel {
   font-family: "Arial", sans-serif;
   padding: 5px;
   margin: 5px 0;
-  background: rgb(136,136,136);
+  background: rgb(136, 136, 136);
   font-size: 15px;
+
   &.selected {
     background-color: rgb(8, 173, 8);
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
   }
+
   &:hover {
     background-color: rgb(3, 82, 3);
     color: #fff;
     cursor: pointer;
   }
 }
+
 .product-card {
+  border: 2px solid transparent;
   transition: all 0.5s;
   &:hover {
-    border-color: $primary;
+    border-top-color: $red;
+    border-bottom-color: $red;
     @extend .shadow-sm
+  }
+}
+
+tr {
+  transition: all 0.7s;
+  &:hover {
+      background: $red;
+      color: white;
   }
 }
