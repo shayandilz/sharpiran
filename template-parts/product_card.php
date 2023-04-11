@@ -3,8 +3,8 @@ global $product;
 
 $product_id = get_the_ID();
 ?>
-<div class="p-2">
-    <div class="card text-center product-card rounded-2 p-1">
+<div class="p-lg-2 px-0">
+    <div class="card text-center product-card rounded-2 p-lg-1">
         <?php if (is_numeric($product->get_price())) : ?>
             <?php if (!$product->is_type('variable')) {
                 $regular_price = (float)$product->get_regular_price(); // Regular price
