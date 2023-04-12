@@ -165,7 +165,7 @@ $product_id = get_the_ID();
                                     </div>
                                     <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
                                          aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="0">
-                                        <?php get_template_part('template-parts/payment/front'); ?>
+<!--                                        --><?php //get_template_part('template-parts/payment/front'); ?>
                                     </div>
                                 </div>
                             <?php } else {

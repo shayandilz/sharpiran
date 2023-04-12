@@ -32,41 +32,41 @@ $monthlyPayment = ceil(($remainingBalance * $monthlyInterestRate * pow(1 + $mont
 $totalAmountPaid = ceil($upfrontPayment + ($monthlyPayment * $numberOfMonths * 1.03) * 100) / 100;
 $lastAmount = $upfrontPayment + $totalAmountPaid;
 ?>
-<form action="" class="add-product border p-3" data-id="<?= get_the_ID(); ?>" id="form-<?= get_the_ID(); ?>"
+<form action="" class="add-product border p-3" data-form-id="<?= get_the_ID(); ?>" data-id="<?= get_the_ID(); ?>" id="form-<?= get_the_ID(); ?>"
       method="post" enctype="multipart/form-data">
     <div class="row g-3 mb-3">
         <!-- HTML code for the range meter -->
         <!-- HTML code for the range meter and payment details -->
         <div class="form-group">
             <label for="payment-range">روش های بازپرداخت</label>
-            <input type="range" class="form-range" oninput="calculatePayments('form-<?= get_the_ID(); ?>')"
-                   id="payment-range-<?= get_the_ID(); ?> anotherID" value="0" min="1" max="3" step="1">
+            <input type="range" class="form-range"
+                   id="payment-range" value="0" min="1" max="3" step="1">
         </div>
 
         <div class="d-flex flex-wrap flex-lg-nowrap gap-lg-3 gap-2 align-items-center justify-content-evenly">
             <div class="mb-3 shadow-sm col-lg col-12">
                 <label for="upfront-payment" class="form-label">پیش پرداخت</label>
-                <input type="text" class="form-control bg-red text-white text-center fs-5"
-                       id="upfront-payment-<?= get_the_ID(); ?>" value readonly>
+                <input type="text" price-id="<?= get_the_ID(); ?>" class="form-control bg-red text-white text-center fs-5"
+                       id="upfront-payment" value readonly>
             </div>
             <div class="mb-3 shadow-sm col-lg col-12">
                 <label for="interest-payment" class="form-label">سود اقساط</label>
                 <input type="text" class="form-control bg-red text-white text-center fs-5"
-                       id="interest-payment-<?= get_the_ID(); ?>" value readonly>
+                       id="interest-payment" value readonly>
             </div>
             <div class="mb-3 shadow-sm col-lg col-12">
                 <label for="total-payment" class="form-label">مبلغ قسط</label>
                 <input type="text" class="form-control bg-red text-white text-center fs-5"
-                       id="total-payment-<?= get_the_ID(); ?>" value readonly>
+                       id="total-payment" value readonly>
             </div>
         </div>
         <div class="mb-3">
             <label for="total-payment" class="form-label fw-bolder fs-4">مبلغ نهایی</label>
             <input type="text" class="form-control bg-red text-white text-center fs-5"
-                   id="last-payment-<?= get_the_ID(); ?>" value readonly>
+                   id="last-payment" value readonly>
         </div>
 
-        <input type="text" value="<?= $totalAmountDue; ?>" id="totalAmount-<?= get_the_ID(); ?>" hidden>
+        <input type="text" value="<?= $totalAmountDue; ?>" id="totalAmount" hidden>
         <div class="col-md-4 form-floating">
             <!--        First Name        -->
             <input disabled
@@ -126,12 +126,9 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                    class="user_code form-control"/>
             <label for="floatingCode">کد ملی</label>
         </div>
-        <div class="col-md-4 form-floating">
-            <input type="number"
-                   data-product-id="<?= get_the_ID(); ?>" name="number" required id="floatingNumber"
-                   class="number form-control"/>
-            <label class="form-label">تعداد</label>
-        </div>
+        <label for="counter">Counter:</label>
+        <input type="number" data-product-id="<?= get_the_ID(); ?>" id="counter" value="1" min="1">
+
         <div class="col-md-12 form-floating">
             <input required
                    id="address floatingAddress"
@@ -155,8 +152,5 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
     <input type="text" value="<?= get_the_ID(); ?>" id="product_id"
            hidden>
     <input type="text" method-product-id="<?= get_the_ID(); ?>" value="قسطی" class="payment_method"
-           hidden>
-    <input type="text" price-id="<?= get_the_ID(); ?>" value="<?= $upfrontPayment; ?>"
-           class="payment_method"
            hidden>
 </form>
