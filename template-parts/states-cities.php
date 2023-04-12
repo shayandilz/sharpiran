@@ -36,7 +36,7 @@ $states_and_cities = array(
 
 ?>
 <div class="col-md-6 form-floating">
-    <select state-id="<?= get_the_ID(); ?>" name="state" class="form-control" id="state">
+    <select state-id="<?= get_the_ID(); ?>" name="state" class="form-control state-dropdown" id="state">
         <?php
         // Loop through the states and create an option for each one
         foreach ($states_and_cities as $state => $cities) {
@@ -48,7 +48,7 @@ $states_and_cities = array(
 </div>
 
 <div class="col-md-6 form-floating">
-    <select city-id="<?= get_the_ID(); ?>" class="form-control" name="city" id="city"></select>
+    <select city-id="<?= get_the_ID(); ?>" class="form-control city-dropdown" name="city" id="city"></select>
     <label for="city">شهر:</label>
 </div>
 
@@ -56,39 +56,47 @@ $states_and_cities = array(
 <script>
     jQuery(document).ready(function () {
 // Get a reference to the state and city dropdowns
-        var $state = jQuery('#state');
-        var $city = jQuery('#city');
+        jQuery('.add-product').each(function () {
+            var $form = jQuery(this);
 
-// When the state dropdown changes, update the city dropdown
-        $state.on('change', function () {
-            // Get the selected state
-            var state = $state.val();
-            // Set the active state as an HTML attribute
-            $state.attr('data-active-state', state);
+            // Get a reference to the state and city dropdowns within the form
+            var $state = $form.find('.state-dropdown');
+            var $city = $form.find('.city-dropdown');
 
-            // Get the list of cities for the selected state
-            var cities = <?php echo json_encode($states_and_cities); ?>[state];
+            // ...rest of the code here...
+            $state.on('change', function () {
+                // Get the selected state
+                var state = $state.val();
+                // Set the active state as an HTML attribute
+                $state.attr('data-active-state', state);
 
-            // Clear the city dropdown and add the cities for the selected state
-            $city.empty();
-            jQuery.each(cities, function (index, city) {
-                $city.append(jQuery('<option></option>').val(city).html(city));
+                // Get the list of cities for the selected state
+                var cities = <?php echo json_encode($states_and_cities); ?>[state];
+
+                // Clear the city dropdown and add the cities for the selected state
+                $city.empty();
+                jQuery.each(cities, function (index, city) {
+                    $city.append(jQuery('<option></option>').val(city).html(city));
+                });
+
+                // Set the default value for the city dropdown
+                $city.val(cities[0]);
+                // Set the active city as an HTML attribute
+                $city.attr('data-active-city', cities[0]);
             });
 
-            // Set the default value for the city dropdown
-            $city.val(cities[0]);
-            // Set the active city as an HTML attribute
-            $city.attr('data-active-city', cities[0]);
-        });
-
 // When the city dropdown changes, update the active city attribute
-        $city.on('change', function () {
-            var city = $city.val();
-            $city.attr('data-active-city', city);
-        });
+            $city.on('change', function () {
+                var city = $city.val();
+                $city.attr('data-active-city', city);
+            });
 
 // Trigger the change event on the state dropdown when the page loads
-        $state.trigger('change');
+            $state.trigger('change');
+        });
+
+// When the state dropdown changes, update the city dropdown
+
 
 
     });
