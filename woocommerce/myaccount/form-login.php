@@ -68,7 +68,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                     <p class="input-group  woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                         <label class="input-group-text bg-red text-white col-12 col-lg-4" for="password"><?php esc_html_e('Password', 'woocommerce'); ?>&nbsp;<span
                                                     class="required">*</span></label>
-                                        <input class="woocommerce-Input form-control woocommerce-Input--text col-12 col-lg-8" type="password"
+                                        <input class="woocommerce-Input form-control woocommerce-Input--text col-12 col-lg-8 pe-5" type="password"
                                                name="password"
                                                id="password" autocomplete="current-password"/>
                                     </p>
