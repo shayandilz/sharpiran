@@ -39,8 +39,13 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <!-- HTML code for the range meter and payment details -->
         <div class="form-group">
             <label for="payment-range">روش های بازپرداخت</label>
-            <input type="range" class="form-range"
-                   id="payment-range" value="0" min="1" max="3" step="1">
+            <input type="range" class="form-range" id="payment-range" value="0" min="1" max="3" step="1">
+            <div id="payment-labels" class="d-flex justify-content-between fs-5">
+                <div class="badge rounded-circle bg-red payment-label">۱</div>
+                <div class="badge rounded-circle bg-red payment-label">۲</div>
+                <div class="badge rounded-circle bg-red payment-label">۳</div>
+            </div>
+            <div id="payment-label" class="mt-2"></div>
         </div>
 
         <div class="d-flex flex-wrap flex-lg-nowrap gap-lg-3 gap-2 align-items-center justify-content-evenly">
@@ -126,9 +131,10 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                    class="user_code form-control"/>
             <label for="floatingCode">کد ملی</label>
         </div>
-        <label for="counter">Counter:</label>
-        <input type="number" data-product-id="<?= get_the_ID(); ?>" id="counter" value="1" min="1">
-
+        <div class="form-floating col-md-4">
+            <input class="form-control" type="number" data-product-id="<?= get_the_ID(); ?>" id="counter" value="1" min="1">
+            <label for="counter">تعداد</label>
+        </div>
         <div class="col-md-12 form-floating">
             <input required
                    id="address floatingAddress"
@@ -142,8 +148,9 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <?php
         get_template_part('template-parts/states-cities');
         ?>
-
-
+        <div class="col-md-12 input-group">
+            <input type="file" class="form-control bg-red text-white" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        </div>
         <div class="col-md-12 mt-3 ">
             <button class="btn btn-addToCard w-100" type="submit">پیش پرداخت
             </button>

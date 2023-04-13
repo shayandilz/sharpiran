@@ -1,61 +1,130 @@
 html, body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
-p{
-    @extend .fw-light;
+
+p {
+  @extend .fw-light;
 }
+
 body {
-    direction: ltr;
+  direction: ltr;
 }
 
-.vh-65{
-    height: 65vh;
+.vh-65 {
+  height: 65vh;
 }
 
-.min-vh-50{
-    min-height: 50vh;
+.min-vh-50 {
+  min-height: 50vh;
 }
-.link-hover:hover{
-    color: $red!important;
+
+.link-hover:hover {
+  color: $red !important;
 }
-.text-justify{
-    text-align: justify;
+
+.text-justify {
+  text-align: justify;
 }
-.object-fit{
-    object-fit: cover;
+
+.object-fit {
+  object-fit: cover;
 }
-.translate-min{
-    transform: translateY(-35px);
+
+.translate-min {
+  transform: translateY(-35px);
 }
-.transparent{
-    opacity: 0.3;
+
+.transparent {
+  opacity: 0.3;
 }
+
 .z-10 {
-    z-index: 10;
-}
-.z-top{
-    z-index: 2;
-}
-.z-below{
-    z-index: 1;
+  z-index: 10;
 }
 
-.lazy{
-    transition: all 0.3s ease-in-out;
+.z-top {
+  z-index: 2;
 }
-.lazy-slow{
-    transition: all 0.9s ease-in-out;
+
+.z-below {
+  z-index: 1;
+}
+
+.lazy {
+  transition: all 0.3s ease-in-out;
+}
+
+.lazy-slow {
+  transition: all 0.9s ease-in-out;
 }
 
 // SCROLL bar styles
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 0;
+  width: 6px;
+  height: 0;
 }
+
 ::-webkit-scrollbar-track {
-    background: $white;
+  background: $white;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: $red;
-    border-radius: 0.5rem;
+  background: $red;
+  border-radius: 0.5rem;
+}
+
+.category-tab {
+  transition: all 0.5s;
+  position: relative;
+  border-radius: 10px;
+  img {
+    filter: grayscale(1);
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 10px;
+    background-color: rgb(141 141 141 / 18%);;
+    transition: all 0.3s;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.3s;
+    border: 1px solid rgb(141 141 141 / 18%);
+    transform: scale(1.2, 1.2);
+  }
+
+  &:hover , &:active , &:focus , &.active  {
+    img {
+      filter: grayscale(0);
+    }
+    color: $red!important;
+    &:before {
+      opacity: 0;
+      transform: scale(0.5, 0.5);
+    }
+
+    &:after {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+}
+input[type="email"].contact-us__form input[type="tel"].contact-us__form {
+  background-color: red;
+  color: white;
 }

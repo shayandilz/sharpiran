@@ -36,6 +36,24 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
+    $('#contact-form').submit(function(event) {
+        event.preventDefault();
+        var email = $('#input_1_4').val();
+        var phone = $('#input_1_3').val();
+
+        $.ajax({
+            url: 'submit-form.php',
+            type: 'POST',
+            data: { email: email, phone: phone },
+            success: function() {
+                alert('Form submitted successfully!');
+                location.reload(); // add this line to refresh the page
+            },
+            error: function() {
+                alert('Error submitting form.');
+            }
+        });
+    });
     if ($(window).width() < 960 ) {
         $('.contact-us__form .form-floating').addClass('col-12');
     }

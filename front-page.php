@@ -7,7 +7,7 @@ get_header(); ?>
     <div class="container-fluid min-vh-100">
         <div class="row justify-content-center align-items-center pb-3">
             <div class="col-11">
-                <ul class="nav nav-tabs border-0 flex-nowrap overflow-tab justify-content-center align-items-center py-3 gap-2"
+                <ul class="nav nav-tabs border-0 flex-nowrap overflow-tab justify-content-lg-center align-items-center py-3 gap-2"
                     id="myTab" role="tablist">
                     <?php
                     $i = 0;
@@ -36,7 +36,7 @@ get_header(); ?>
                             $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
                             ?>
                             <li class="nav-item" role="presentation">
-                                <button class="category-tab <?= $thumbnail_id ? 'd-flex align-items-center' : '' ;?> rounded-2 shadow-sm nav-link <?php if ($i == 0) {
+                                <button class="category-tab border-0 <?= $thumbnail_id ? 'd-flex align-items-center' : '' ;?> nav-link <?php if ($i == 0) {
                                     $i = 1;
                                     echo 'active';
                                 }

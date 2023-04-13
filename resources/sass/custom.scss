@@ -169,18 +169,6 @@
 .nav-tabs:not(.custom-tab) .category-tab {
   width: 100px;
   height: 70px;
-  border: 2px solid transparent;
-  box-shadow: 0 0 3px #97969666;
-}
-
-.category-tab {
-  img {
-    filter: grayscale(1);
-  }
-
-  &.active img {
-    filter: grayscale(0);
-  }
 }
 
 .custom-tab {
@@ -313,35 +301,61 @@ p.rangeLabel {
 }
 
 tr {
-  td{
+  td {
     background: linear-gradient(to right, $red 50%, white 50%);
     background-size: 200% 100%;
     background-position: right;
     transition: all 0.6s ease-out;
   }
+
   transition: all 0.7s ease-out;
- th {
-   cursor: default;
-   position: relative;
-   &:after {
-     transition: all 0.5s;
-     content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23C6282B' class='bi bi-caret-left-fill' viewBox='0 0 16 16'%3E%3Cpath d='m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z'/%3E%3C/svg%3E");
-     position: absolute;
-     right: 20%;
-     line-height: 0;
-     top: 50%;
-     transform: translate(-50%,-50%);
-     opacity: 0;
-   }
- }
+
+  th {
+    cursor: default;
+    position: relative;
+
+    &:after {
+      transition: all 0.5s;
+      content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23C6282B' class='bi bi-caret-left-fill' viewBox='0 0 16 16'%3E%3Cpath d='m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z'/%3E%3C/svg%3E");
+      position: absolute;
+      right: 20%;
+      line-height: 0;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+  }
+
   &:hover {
     th:after {
       right: 5px;
       opacity: 1;
     }
-    td{
+
+    td {
       background-position: left;
       color: white;
+    }
+  }
+}
+
+.password-input {
+  @extend .col-12, .col-lg-8;
+}
+
+.woocommerce-form-login {
+  input {
+      direction: rtl;
+  }
+}
+.woocommerce-form-register {
+  .form-row:not(.input-group) {
+    @extend .input-group , .flex-lg-nowrap;
+    label {
+      @extend .col-12 , .col-lg-4 , .bg-red , .text-white , .input-group-text , .justify-content-center
+    }
+    input {
+      @extend .col-12 , .col-lg-8 , .form-control
     }
   }
 }
