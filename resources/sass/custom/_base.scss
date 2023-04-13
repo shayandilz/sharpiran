@@ -21,7 +21,13 @@ body {
 .link-hover:hover {
   color: $red !important;
 }
-
+body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}
+.overflow-scroll-y {
+  overflow-y: scroll!important;
+}
 .text-justify {
   text-align: justify;
 }

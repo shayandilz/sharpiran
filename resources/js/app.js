@@ -32,6 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', function () {
         toggleScrollClass();
     });
+    const swiper = new Swiper('.product-gallery', {
+        // Optional parameters
+        loop: true,
+        effect: 'slide',
+        slidesPerView: 1,
+        spaceBetween: 0,
+        direction: 'horizontal',
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 10000,
+        },
+        disableOnInteraction: false,
+    })
 
 })
 
