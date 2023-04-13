@@ -11,6 +11,7 @@ get_header(); ?>
                     id="myTab" role="tablist">
                     <?php
                     $i = 0;
+                    $j = 0;
 
                     $taxonomy = 'product_cat';
                     $orderby = 'name';
@@ -36,7 +37,7 @@ get_header(); ?>
                             $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
                             ?>
                             <li class="nav-item" role="presentation">
-                                <button class="category-tab border-0 <?= $thumbnail_id ? 'd-flex align-items-center' : '' ;?> nav-link <?php if ($i == 0) {
+                                <button class="category-tab animate__animated animate__bounceIn animate__delay-<?= $j;?>s border-0 <?= $thumbnail_id ? 'd-flex align-items-center' : '' ;?> nav-link <?php if ($i == 0) {
                                     $i = 1;
                                     echo 'active';
                                 }
@@ -54,6 +55,7 @@ get_header(); ?>
                             </li>
 
                         <?php }
+                        $j++;
                     }
                     ?>
                 </ul>

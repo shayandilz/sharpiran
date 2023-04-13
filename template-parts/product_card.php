@@ -15,18 +15,18 @@ $product_id = get_the_ID();
                 <!--            </span>-->
             <?php } ?>
         <?php endif; ?>
-        <div class="ratio ratio-1x1">
+        <div class="ratio ratio-1x1 animate__animated animate__jackInTheBox">
             <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
             <img src="<?php echo $image[0]; ?>"
                  class="card-img-top"
                  alt="<?php the_title(); ?>">
         </div>
         <div class="card-body">
-            <h6 class="card-title mb-0">
+            <h6 class="card-title mb-0 animate__animated animate__slideInUp">
                 <!-- Button trigger modal -->
                 <?php the_title(); ?>
             </h6>
-            <p class="card-text">
+            <p class="card-text animate__animated animate__slideInUp">
                 <?php
                 if (is_numeric($product->get_price())) :
                     if (!$product->is_type('variable')) {
