@@ -67,7 +67,7 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
                                 ?><div class="d-flex"><?php
                                     if ( ! empty( $actions ) ) {
                                         foreach ( $actions as $key => $action ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-                                            echo '<a href="' . esc_url( $action['url'] ) . '" class="text-center col-12 btn btn-primary me-1 ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
+                                            echo '<a href="' . esc_url( $action['url'] ) . '" class="text-center col-12 btn bg-red text-white me-1 ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
                                         }
                                     } ?>
                                 </div>

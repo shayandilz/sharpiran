@@ -62,7 +62,7 @@ $product_id = get_the_ID();
                     <div class="modal-body flex-row-reverse d-flex flex-wrap position-relative">
                         <div class="col-12 col-lg-4 pb-3 pb-lg-4 overflow-scroll-y position-lg-sticky top-0 h-100">
                             <?php get_template_part('template-parts/product/thumbnail-gallery') ; ?>
-                                <table class="col-11 mx-auto px-3 mt-2 mt-lg-0">
+                                <table class="product-table col-11 mx-auto px-3 mt-2 mt-lg-0">
                                     <tbody>
                                     <?php
                                     global $product;

@@ -60,7 +60,7 @@ $col    = 1;
 	<div class="u-column<?php echo $col < 0 ? 12 : 2; ?> col-<?php echo $oldcol < 0 ? 12 : 2; ?> woocommerce-Address">
 		<header class="woocommerce-Address-title title">
 			<h6 class="alert alert-outline-primary alert-pills"><?php echo esc_html( $address_title ); ?></h6>
-			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="edit btn btn-primary"><?php echo $address ? esc_html__( 'Edit', 'woocommerce' ) : esc_html__( 'Add', 'woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( wc_get_endpoint_url( 'edit-address', $name ) ); ?>" class="my-1 btn bg-red text-white"><?php echo $address ? esc_html__( 'Edit', 'woocommerce' ) : esc_html__( 'Add', 'woocommerce' ); ?></a>
 		</header>
 		<address>
 			<?php

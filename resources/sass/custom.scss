@@ -300,7 +300,7 @@ p.rangeLabel {
   }
 }
 
-tr {
+.product-table tr {
   td {
     background: linear-gradient(to right, $red 50%, white 50%);
     background-size: 200% 100%;
@@ -339,23 +339,43 @@ tr {
   }
 }
 
-.password-input {
+body:not(.logged-in) .password-input {
   @extend .col-12, .col-lg-8;
+}
+
+body.logged-in {
+  #user_identity_field, #user_code_field {
+    @extend .form-floating, .col-lg-6, .col-12;
+    label {
+      .optional {
+        display: none;
+      }
+    }
+    span {
+      @extend .form-control, .text-end;
+      input{
+        @extend .border-0 , .text-end
+      }
+    }
+  }
 }
 
 .woocommerce-form-login {
   input {
-      direction: rtl;
+    direction: rtl;
   }
 }
+
 .woocommerce-form-register {
   .form-row:not(.input-group) {
-    @extend .input-group , .flex-lg-nowrap;
+    @extend .input-group, .flex-lg-nowrap;
+
     label {
-      @extend .col-12 , .col-lg-4 , .bg-red , .text-white , .input-group-text , .justify-content-center
+      @extend .col-12, .col-lg-4, .bg-red, .text-white, .input-group-text, .justify-content-center
     }
+
     input {
-      @extend .col-12 , .col-lg-8 , .form-control
+      @extend .col-12, .col-lg-8, .form-control
     }
   }
 }
