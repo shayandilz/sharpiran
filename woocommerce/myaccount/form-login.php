@@ -31,24 +31,24 @@ do_action('woocommerce_before_customer_login_form'); ?>
         <div class="container px-0">
             <div class="row justify-content-center">
                 <div class="<?= !is_front_page() ? 'col-lg-6': '';?> col-12">
-                    <ul class="nav nav-pills my-3 justify-content-center mb-lg-3" id="myTab" role="tablist">
+                    <ul class="nav nav-pills my-3 justify-content-center mb-lg-3" role="tablist">
                         <li class="nav-item shadow-sm" role="presentation">
-                            <button class="nav-link nav-link active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                            <button class="nav-link nav-link active" id="form-login-tab-<?= is_front_page() ? get_the_ID() : ''; ?>" data-bs-toggle="tab"
+                                    data-bs-target="#form-login-<?= is_front_page() ? get_the_ID() : ''; ?>" type="button" role="tab" aria-controls="form-login-<?= is_front_page() ? get_the_ID() : ''; ?>"
                                     aria-selected="true">
                                 ورود
                             </button>
                         </li>
                         <li class="nav-item shadow-sm" role="presentation">
-                            <button class="nav-link nav-link" id="profile-tab" data-bs-toggle="tab"
-                                    data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                            <button class="nav-link nav-link" id="form-register-tab-<?= is_front_page() ? get_the_ID() : ''; ?>" data-bs-toggle="tab"
+                                    data-bs-target="#form-register-<?= is_front_page() ? get_the_ID() : ''; ?>" type="button" role="tab" aria-controls="form-register-<?= is_front_page() ? get_the_ID() : ''; ?>"
                                     aria-selected="false">
                                 عضویت
                             </button>
                         </li>
                     </ul>
-                    <div class="tab-content pt-4 border" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-content pt-4 border" >
+                        <div class="tab-pane fade show active" id="form-login-<?= is_front_page() ? get_the_ID() : ''; ?>" role="tabpanel" aria-labelledby="form-login-tab-<?= is_front_page() ? get_the_ID() : ''; ?>">
                             <div class="">
                                 <h2 class="text-center"><?php esc_html_e('Login', 'woocommerce'); ?></h2>
 
@@ -98,7 +98,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="tab-pane fade" id="form-register-<?= is_front_page() ? get_the_ID() : ''; ?>" role="tabpanel" aria-labelledby="form-register-tab-<?= is_front_page() ? get_the_ID() : ''; ?>">
                             <div class="">
 
                                 <h2 class="text-center"><?php esc_html_e('Register', 'woocommerce'); ?></h2>
