@@ -4,11 +4,11 @@ global $product;
 $product_id = get_the_ID();
 ?>
 <div class="p-lg-2 p-1">
-    <div class="card text-center product-card rounded-3 p-1 overflow-hidden">
+    <div class="card text-center product-card rounded-3 p-2 overflow-hidden">
         <div class="ratio ratio-1x1 animate__animated animate__jackInTheBox">
             <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
             <img  src="<?php echo $image[0]; ?>"
-                 class="card-img-top rounded-3"
+                 class="card-img-top rounded-3 p-1 p-lg-2 bg-white"
                  alt="<?php the_title(); ?>">
         </div>
         <div class="card-body">

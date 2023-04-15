@@ -87,7 +87,7 @@ get_header(); ?>
                             );
                             $loop = new WP_Query($args);
                             if ($loop->have_posts()) { ?>
-                            <div class="row row-cols-lg-4 row-cols-2">
+                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2">
                                 <?php while ($loop->have_posts()) : $loop->the_post();
                                     get_template_part('template-parts/product_card');
                                 endwhile;

@@ -290,6 +290,7 @@ p.rangeLabel {
 }
 
 .product-card {
+  background-color: #8080801c;
   border: 2px solid transparent;
   transition: all 0.5s;
 
@@ -311,7 +312,7 @@ p.rangeLabel {
       }
     }
     .card-img-top {
-      box-shadow: 0 100px 100px 100px #6C757D !important;
+      box-shadow: 0 50px 100px 100px #6C757D !important;
     }
   }
 }
