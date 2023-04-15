@@ -3,22 +3,12 @@ global $product;
 
 $product_id = get_the_ID();
 ?>
-<div class="p-lg-2 px-0">
-    <div class="card text-center product-card rounded-2 p-lg-1">
-        <?php if (is_numeric($product->get_price())) : ?>
-            <?php if (!$product->is_type('variable')) {
-                $regular_price = (float)$product->get_regular_price(); // Regular price
-                $sale_price = (float)$product->get_price(); // Active price (the "Sale price" when on-sale)
-                ?>
-                <!--                <span class="badge bg-primary position-absolute end-0 bottom-0 z-index-10">%-->
-                <!--                --><? //= $saving_percentage = ceil(round(100 - ($sale_price / $regular_price * 100), 1)) ?>
-                <!--            </span>-->
-            <?php } ?>
-        <?php endif; ?>
+<div class="p-lg-2 p-1">
+    <div class="card text-center product-card rounded-3 p-1 overflow-hidden">
         <div class="ratio ratio-1x1 animate__animated animate__jackInTheBox">
             <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
-            <img src="<?php echo $image[0]; ?>"
-                 class="card-img-top"
+            <img  src="<?php echo $image[0]; ?>"
+                 class="card-img-top rounded-3"
                  alt="<?php the_title(); ?>">
         </div>
         <div class="card-body">
@@ -47,7 +37,7 @@ $product_id = get_the_ID();
                 <?php endif; ?>
             </p>
             <a data-bs-toggle="modal" data-bs-target="#modal-<?= get_the_ID(); ?>" type="button" href="#"
-               class="stretched-link btn btn-addToCard">ثبت سفارش</a>
+               class="stretched-link btn btn-addToCard rounded-1">ثبت سفارش</a>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="modal-<?= get_the_ID(); ?>" tabindex="-1"
