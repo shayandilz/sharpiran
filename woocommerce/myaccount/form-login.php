@@ -47,7 +47,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
                             </button>
                         </li>
                     </ul>
-                    <div class="tab-content pt-4 border" >
+                    <div class="tab-content pt-4 border rounded-3" >
                         <div class="tab-pane fade show active" id="form-login-<?= is_front_page() ? get_the_ID() : ''; ?>" role="tabpanel" aria-labelledby="form-login-tab-<?= is_front_page() ? get_the_ID() : ''; ?>">
                             <div class="">
                                 <h2 class="text-center"><?php esc_html_e('Login', 'woocommerce'); ?></h2>

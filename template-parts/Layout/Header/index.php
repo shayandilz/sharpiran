@@ -60,9 +60,29 @@
             <!--                <i class="bi bi-search"></i>-->
             <!--            </a>-->
             <!--                my acount icon-->
-            <a class="w-bold text-center" href="/my-account/">
-                <i class="bi bi-person fs-3"></i>
-            </a>
+            <?php
+            if ( is_user_logged_in() ) { ?>
+                <div class="btn-group position-relative">
+                    <a type="button" class="dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
+                       data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                        <span class="visually-hidden">Toggle Dropdown</span>
+                    </a>
+                    <a class="fw-bold text-center" href="/my-account/">
+                        <i class="bi bi-person-circle fs-3"></i>
+                    </a>
+                    <ul class="dropdown-menu translate-middle-x" aria-labelledby="dropdownMenuReference">
+                        <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
+                            <li><a class="dropdown-item <?php echo wc_get_account_menu_item_classes($endpoint); ?> "
+                                   href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php } else { ?>
+                <a type="button" class="fw-bold text-center" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">
+                    <i class="bi bi-person-circle fs-3"></i>
+                </a>
+           <?php  }
+            ?>
         </div>
     </div>
 </nav>
@@ -88,5 +108,16 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ورود</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?= do_shortcode('[woocommerce_my_account]');?>
+        </div>
     </div>
 </div>

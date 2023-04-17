@@ -90,7 +90,7 @@ $product_id = get_the_ID();
                                     ?>
                                     </tbody>
                                 </table>
-
+                                <p class="pt-3"><?= $product->post->post_excerpt;?></p>
                             </div>
                             <div class="col-12 col-lg-8 p-lg-3 p-1 overflow-scroll-y position-sticky top-0 h-100">
                                 <div class="d-flex justify-content-between">
