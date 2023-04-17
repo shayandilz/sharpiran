@@ -37,31 +37,13 @@
                             aria-controls="offcanvasBottom">
                         <i class="bi bi-search"></i>
                     </button>
-                    <!--                my acount icon-->
-                    <a class="btn fw-bold text-white shadow rounded-circle py-1 border-0"
-                       href="/my-account/">
-                        <i class="bi bi-person fs-3"></i>
-                    </a>
                 </div>
             </div>
 
         </div>
-        <!--        menu button-->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar">
-            <i class="bi bi-list"></i>
-        </button>
-        <div class="d-none d-lg-flex align-items-center gap-2">
-            <!--                search icon-->
-            <!--            <a class="fs-5 text-red" type="button"-->
-            <!--               data-bs-toggle="offcanvas"-->
-            <!--               data-bs-target="#offcanvasBottom"-->
-            <!--               aria-controls="offcanvasBottom">-->
-            <!--                <i class="bi bi-search"></i>-->
-            <!--            </a>-->
-            <!--                my acount icon-->
+        <div class="d-flex gap-2">
             <?php
-            if ( is_user_logged_in() ) { ?>
+            if (is_user_logged_in()) { ?>
                 <div class="btn-group position-relative">
                     <a type="button" class="dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
@@ -73,18 +55,24 @@
                     <ul class="dropdown-menu translate-middle-x" aria-labelledby="dropdownMenuReference">
                         <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
                             <li><a class="dropdown-item <?php echo wc_get_account_menu_item_classes($endpoint); ?> "
-                                   href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a></li>
+                                   href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
             <?php } else { ?>
-                <a type="button" class="fw-bold text-center" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">
+                <a type="button" class="fw-bold text-center" data-bs-toggle="modal" data-bs-target="#loginModal"
+                   href="#">
                     <i class="bi bi-person-circle fs-3"></i>
                 </a>
-           <?php  }
+            <?php }
             ?>
+            <!--        menu button-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                <i class="bi bi-list"></i>
+            </button>
         </div>
-    </div>
 </nav>
 <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
      aria-labelledby="offcanvasBottomLabel">
@@ -117,7 +105,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">ورود</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <?= do_shortcode('[woocommerce_my_account]');?>
+            <?= do_shortcode('[woocommerce_my_account]'); ?>
         </div>
     </div>
 </div>
