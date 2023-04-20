@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         upfrontPayment.value = upfrontPaymentValue;
         interestPayment.value = interestPaymentValue;
-        totalPayment.value = Math.round(totalPaymentValue);
+        totalPayment.value = Math.ceil(totalPaymentValue.toFixed(0)/1000) * 1000;
         lastPayment.value = last;
     };
 
