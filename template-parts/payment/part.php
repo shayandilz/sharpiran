@@ -148,9 +148,17 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <?php
         get_template_part('template-parts/states-cities');
         ?>
-        <div class="col-md-12 input-group">
-            <input type="file" class="form-control bg-red text-white" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+<!--        <div class="col-md-12 input-group">-->
+<!--            <input type="file" class="form-control bg-red text-white" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">-->
+<!--        </div>-->
+        <div class="col-md-12">
+            <label class="form-label">آپلود چک</label>
+            <input file-id="<?= get_the_ID(); ?>" id="file" name="file" type="file" class="form-control file-pdf"/>
         </div>
+        <input name="security" value="<?php echo wp_create_nonce("uploadingFile"); ?>" type="hidden">
+
+        <!--	// set action name-->
+        <input name="action" value="upload_file" type="hidden"/>
         <div class="col-md-12 mt-3 ">
             <button class="btn btn-addToCard w-100" type="submit">پیش پرداخت
             </button>

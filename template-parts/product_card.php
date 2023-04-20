@@ -103,8 +103,8 @@ $product_id = get_the_ID();
                                             if (!$product->is_type('variable')) {
                                                 if ($product->get_sale_price() == true) { ?>
                                                     <span class="text-primary text-decoration-line-through me-1">
-                    <?php echo number_format($product->get_regular_price()); ?>
-                </span> <?php echo number_format($product->get_sale_price());
+                                                        <?php echo number_format($product->get_regular_price()); ?>
+                                                    </span> <?php echo number_format($product->get_sale_price());
                                                 } else {
                                                     echo number_format($product->get_regular_price());
                                                 }
@@ -148,7 +148,12 @@ $product_id = get_the_ID();
                                         <div class="tab-pane fade show active" id="pills-part-<?= get_the_ID(); ?>"
                                              role="tabpanel"
                                              aria-labelledby="pills-part-tab-<?= get_the_ID(); ?>" tabindex="0">
-                                            <?php get_template_part('template-parts/payment/part'); ?>
+                                            <div class="form-body">
+                                                <?php get_template_part('template-parts/payment/part'); ?>
+                                            </div>
+                                            <div class="form_result">
+
+                                            </div>
                                         </div>
                                         <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
                                              aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="0">

@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-document.addEventListener('DOMContentLoaded', function (){
+document.addEventListener('DOMContentLoaded', function () {
 
     const calculatePayments = (form, paymentPlan, counter) => {
         let totalAmount = form.querySelector('#totalAmount').value * counter;
@@ -74,6 +74,15 @@ document.addEventListener('DOMContentLoaded', function (){
 let ajax_url = jsData.api_root
 $(document).on('submit', '.add-product', function (e) {
     e.preventDefault();
+    $('.form-body').addClass('spinner-custom');
+
+    let resultDiv = $('.form_result');
+    let formDiv = $('.form-body')
+    let fileUpload = $(this).find('[file-id="' + $(this).find('#product_id').val() + '"]').val();
+    let checkedFile = fileUpload.match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})(.*)/g)
+    if (checkedFile === null) {
+        checkedFile = ['']
+    }
     const formId = $(this).attr('data-id');
     let endpointOrder = jsData.root_url + '/wp-json/wc/v3/orders'
     let apiDataOrder = {
@@ -88,14 +97,19 @@ $(document).on('submit', '.add-product', function (e) {
                 city: $(this).find('[city-id="' + $(this).find('#product_id').val() + '"]').attr('data-active-city'),
 
             },
+
         meta_data: [
             {
                 key: 'user_identity',
-                value : $(this).find('[user-id="' + $(this).find('#product_id').val() + '"]').val(),
+                value: $(this).find('[user-id="' + $(this).find('#product_id').val() + '"]').val(),
             },
             {
                 key: 'user_code',
-                value : $(this).find('[user-code="' + $(this).find('#product_id').val() + '"]').val(),
+                value: $(this).find('[user-code="' + $(this).find('#product_id').val() + '"]').val(),
+            },
+            {
+                key:'فایل چگ',
+                value: checkedFile[0]
             }
         ],
         line_items: [
@@ -110,6 +124,10 @@ $(document).on('submit', '.add-product', function (e) {
                     {
                         key: 'مبلغ',
                         value: $(this).find('[price-id="' + $(this).find('#product_id').val() + '"]').val()
+                    },
+                    {
+                        key:'فایل چگ',
+                        value: checkedFile[0]
                     }
                 ]
             },
@@ -117,7 +135,6 @@ $(document).on('submit', '.add-product', function (e) {
         ],
         customer_id: jsData.user_id
     }
-    console.log(apiDataOrder)
     $.ajax({
         url: endpointOrder + "?consumer_key=" + jsData.apiUser + "&consumer_secret=" + jsData.apiKey,
         type: "POST",
@@ -126,6 +143,45 @@ $(document).on('submit', '.add-product', function (e) {
         dataType: 'json',
         success: function (result) {
             console.log(result)
+            $('.form-body').removeClass('spinner-custom');
+            formDiv.fadeOut()
+            if (result.status == 'processing') {
+                resultDiv.html(`
+                    <div class="card border-0">  
+                        <div class="card-body bg-primary rounded">
+                            <div class="invoice-middle">
+                                <div class="alert alert-success" role="alert">سفارش با موفقیت ایجاد شد</div>
+                                    <div class="row justify-content-center align-items-center mb-0">
+                                        <div class="col-md-12 text-center mt-2 mt-sm-0">
+                                        <div class="d-block">
+                                            <div class="alert alert-primary alert-pills" role="alert">
+                                                <span class="content ">کد سفارش </span>
+                                                <span class="badge rounded-pill bg-red me-1 fs-5 px-3 py-2">${result.number}</span>
+                                            </div>
+                                    </div>
+                                </div>
+                               <div class="row justify-content-center align-items-center">
+                                    <div class="col-md-12 text-center">
+                                        <a href="/my-account/view-order/${result.number}" target="_blank">
+                                        <button class="btn btn-secondary">
+                                        مشاهده سفارش 
+                                        </button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                `)
+            } else {
+                resultDiv.html(`
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="invoice-middle">
+                                <div class="alert alert-danger" role="alert">ثبت سفارش با مشکل مواجه شده است.</div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
             $(this).trigger('reset');
 
             // Update user billing address
@@ -154,7 +210,7 @@ $(document).on('submit', '.add-product', function (e) {
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (result) {
-                    console.log(result);
+
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.responseText);

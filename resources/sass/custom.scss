@@ -412,3 +412,29 @@ body.logged-in {
   }
 
 }
+
+.spinner-custom:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #f1f1f1;
+  opacity: 0.8;
+}
+.spinner-custom:before{
+  content: "";
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgb(251 142 5 / 30%);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+}

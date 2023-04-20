@@ -329,8 +329,35 @@ add_filter( 'is_xml_preprocess_enabled', 'wpai_is_xml_preprocess_enabled', 10, 1
 function wpai_is_xml_preprocess_enabled( $is_enabled ) {
 	return false;
 }
-function removeWooCommerceDownloadSection($items) {
-    unset( $items['downloads'] );
-    return $items;
+//function removeWooCommerceDownloadSection($items) {
+//    unset( $items['downloads'] );
+//    return $items;
+//}
+//add_filter('woocommerce_account_menu_items', 'removeWooCommerceDownloadSection', 10, 1);
+
+
+// create hook for file uploading
+add_action('wp_ajax_nopriv_upload_file', 'upload_file_callback');
+add_action('wp_ajax_upload_file', 'upload_file_callback');
+
+function upload_file_callback()
+{
+    // check security nonce which one we created in html form and sending with data.
+    check_ajax_referer('uploadingFile', 'security');
+
+    // removing white space
+    $fileName = preg_replace('/\s+/', '-', $_FILES["file"]["name"]);
+
+    // removing special character but keep . character because . seprate to extantion of file
+    $fileName = preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
+
+    // rename file using time
+    $fileName = time() . '-' . $fileName;
+
+    // upload file
+    if (wp_upload_bits($fileName, null, file_get_contents($_FILES["file"]["tmp_name"]))) {
+        var_dump(wp_upload_bits($fileName, null, file_get_contents($_FILES["file"]["tmp_name"]))['url']);
+    } else {
+        echo json_encode(['code' => 404, 'msg' => 'Some thing is wrong! Try again.']);
+    }
 }
-add_filter('woocommerce_account_menu_items', 'removeWooCommerceDownloadSection', 10, 1);
