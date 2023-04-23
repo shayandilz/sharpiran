@@ -53,6 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         disableOnInteraction: false,
     })
+    const swiper2 = new Swiper('.shop_swiper', {
+        // Optional parameters
+        loop: true,
+        effect: 'fade',
+        speed: 1000,
+        autoplay: {
+            delay: 5000,
+        },
+        slidesPerView: 1,
+        spaceBetween: 0,
+        // disableOnInteraction: false,
+    });
 
 })
 

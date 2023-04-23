@@ -4,7 +4,8 @@ get_header(); ?>
 
 <?php if (have_posts()) {
     the_post(); ?>
-    <div class="container-fluid min-vh-100">
+    <?php get_template_part('template-parts/homePage/hero');?>
+    <div class="container-fluid min-vh-100 mt-2">
         <div class="row justify-content-center align-items-center pb-3">
             <div class="col-11">
                 <ul class="nav nav-tabs border-0 flex-nowrap overflow-tab justify-content-lg-center align-items-center py-3 gap-2"

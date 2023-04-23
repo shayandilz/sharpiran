@@ -40,7 +40,14 @@
     height: 1px;
   }
 }
-
+//hero slider
+.hero_slider{
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#checkdv_1 {
+  display: none;
+}
 //box image hover
 .box1 {
   background-color: #fff;
@@ -289,7 +296,7 @@ p.rangeLabel {
   }
 }
 
-.product-card {
+.card.product-card:not(.order-card) {
   background-color: #8080801c;
   border: 2px solid transparent;
   transition: all 0.5s;

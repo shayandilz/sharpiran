@@ -1,4 +1,4 @@
-<nav class="sticky__nav navbar navbar-light navbar-expand-lg bg-white start-0 end-0 z-10 mb-1 py-2 border-bottom border-red border-1 anim shadow-sm">
+<nav class="sticky__nav navbar navbar-light navbar-expand-lg bg-white start-0 end-0 z-10 mb-1 py-2 anim shadow-sm">
     <div class="container">
         <a class="navbar-brand me-5" href="/">
             <img width="40" height="40" src="<?= get_field('logo', 'option')['url']; ?>"
@@ -44,13 +44,17 @@
         <div class="d-flex gap-2">
             <?php
             if (is_user_logged_in()) { ?>
-                <div class="btn-group position-relative">
-                    <a type="button" class="dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
+                <div class="d-flex gap-2 align-items-center position-relative">
+                    <a type="button" class="dropdown-toggle dropdown-toggle-split px-2 shadow-sm rounded-circle" id="dropdownMenuReference"
                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </a>
-                    <a class="fw-bold text-center" href="/my-account/">
-                        <i class="bi bi-person-circle fs-3"></i>
+
+                    <a class="no-decoration fw-bold text-center" href="/my-account/">
+                        <?php global $current_user;
+                        wp_get_current_user();
+                        echo  $current_user->display_name ;
+                        ?>
                     </a>
                     <ul class="dropdown-menu translate-middle-x" aria-labelledby="dropdownMenuReference">
                         <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>

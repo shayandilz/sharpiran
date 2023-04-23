@@ -147,11 +147,11 @@ $(document).on('submit', '.add-product', function (e) {
             formDiv.fadeOut()
             if (result.status == 'processing') {
                 resultDiv.html(`
-                    <div class="card border-0">  
+                    <div class="card order-card border-0">  
                         <div class="card-body bg-primary rounded">
-                            <div class="invoice-middle">
-                                <div class="alert alert-success" role="alert">سفارش با موفقیت ایجاد شد</div>
-                                    <div class="row justify-content-center align-items-center mb-0">
+                            <div class="invoice-middle text-center">
+                                <div class="alert alert-success fs-2 mb-3" role="alert">سفارش با موفقیت ایجاد شد</div>
+                                    <div class="row justify-content-center align-items-center mb-0 gap-3">
                                         <div class="col-md-12 text-center mt-2 mt-sm-0">
                                         <div class="d-block">
                                             <div class="alert alert-primary alert-pills" role="alert">
@@ -162,10 +162,7 @@ $(document).on('submit', '.add-product', function (e) {
                                 </div>
                                <div class="row justify-content-center align-items-center">
                                     <div class="col-md-12 text-center">
-                                        <a href="/my-account/view-order/${result.number}" target="_blank">
-                                        <button class="btn btn-secondary">
-                                        مشاهده سفارش 
-                                        </button></a>
+                                        <a class="btn bg-red text-white" href="/my-account/view-order/${result.number}" target="_blank">مشاهده سفارش</a>
                                     </div>
                                 </div>
                             </div>
