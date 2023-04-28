@@ -56,7 +56,7 @@ $states_and_cities = array(
 <script>
     jQuery(document).ready(function () {
 // Get a reference to the state and city dropdowns
-        jQuery('.add-product').each(function () {
+        jQuery('.add-product , .add-product-front').each(function () {
             var $form = jQuery(this);
 
             // Get a reference to the state and city dropdowns within the form

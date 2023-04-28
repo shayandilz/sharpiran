@@ -1,5 +1,5 @@
 <section>
-    <div class="swiper shop_swiper bg-red"  style=" height: 500px;">
+    <div class="swiper shop_swiper bg-red">
 
         <div class="swiper-wrapper">
             <?php while (have_rows('slider-home')):

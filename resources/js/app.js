@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const swiper2 = new Swiper('.shop_swiper', {
         // Optional parameters
         loop: true,
-        effect: 'fade',
+        effect: 'slide',
         speed: 1000,
         autoplay: {
             delay: 5000,
@@ -108,6 +108,7 @@ $(document).ready(function () {
 });
 
 require('./order');
+require('./order-front');
 
 
 

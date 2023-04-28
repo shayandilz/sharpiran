@@ -160,7 +160,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <!--	// set action name-->
         <input name="action" value="upload_file" type="hidden"/>
         <div class="col-md-12 mt-3 ">
-            <button class="btn btn-addToCard w-100" type="submit">پیش پرداخت
+            <button class="btn btn-addToCard w-100" type="submit">ثبت سفارش
             </button>
         </div>
     </div>
