@@ -29,6 +29,12 @@
                     endif;
                     ?>
                 </ul>
+                <button class="d-none d-lg-inline fw-bold text-red border-0 bg-transparent mx-2" type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom"
+                        aria-controls="offcanvasBottom">
+                    <i class="bi bi-search"></i>
+                </button>
                 <div class="d-lg-none fixed-bottom d-flex py-2 bg-red gap-2 justify-content-center">
                     <!--                search icon-->
                     <button class="btn fw-bold fs-4 text-white shadow rounded-circle border-0" type="button"
@@ -45,7 +51,8 @@
             <?php
             if (is_user_logged_in()) { ?>
                 <div class="d-flex gap-2 align-items-center position-relative">
-                    <a type="button" class="dropdown-toggle dropdown-toggle-split px-2 shadow-sm rounded-circle" id="dropdownMenuReference"
+                    <a type="button" class="dropdown-toggle dropdown-toggle-split px-2 shadow-sm rounded-circle"
+                       id="dropdownMenuReference"
                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
                         <span class="visually-hidden">Toggle Dropdown</span>
                     </a>
@@ -53,7 +60,7 @@
                     <a class="no-decoration fw-bold text-center" href="/my-account/">
                         <?php global $current_user;
                         wp_get_current_user();
-                        echo  $current_user->display_name ;
+                        echo $current_user->display_name;
                         ?>
                     </a>
                     <ul class="dropdown-menu translate-middle-x" aria-labelledby="dropdownMenuReference">
@@ -78,28 +85,33 @@
             </button>
         </div>
 </nav>
-<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasBottom"
      aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title col text-center fs-4" id="offcanvasBottomLabel">جستجوی محصول</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body small">
-        <form class="search-form"
+    <div class="offcanvas-body small row justify-content-center">
+        <form class="col-8 search-form"
               method="get"
               action="<?php echo esc_url(home_url('/')); ?>">
             <div class="input-group">
-                <!--                ---><? //= $args['place'] ?>
-                <input id="search-form" type="search" name="s"
-                       class="s form-control fs-5"
+                <input id="search-form" type="search" name="s" class="s form-control pe-4 bg-light"
                        placeholder="جستجو"
                        aria-label="Search">
-                <button type="submit" class="bg-red search-submit text-white btn p-3 rounded-start rounded-1">
+                <button type="submit" class=" bg-red search-submit text-white btn px-3">
                     <i class="bi bi-search fs-5 small-sm-down"></i>
                 </button>
             </div>
         </form>
+        <button type="button"
+                class="btn-close bg-primary text-reset mobile-overlay__close d-none p-2">
+        </button>
+        <div class="position-absolute bg-white rounded container start-50 top-100 translate-middle-x search-overlay__results
+z-top search-box-overflow">
+
+        </div>
     </div>
 </div>
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

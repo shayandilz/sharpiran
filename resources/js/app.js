@@ -6,6 +6,9 @@ import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import $ from 'jquery';
 
+import Search from "./search";
+
+const search = new Search();
 
 document.addEventListener('DOMContentLoaded', function () {
     let btn = $('#myBtn');
