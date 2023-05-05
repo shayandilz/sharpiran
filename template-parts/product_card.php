@@ -19,10 +19,10 @@ $product_id = get_the_ID();
                 <?php
                 if (is_numeric($product->get_price())) :
                     if (!$product->is_type('variable')) {
-                        if ($product->get_sale_price() == true) { ?>
+                        if ($product->get_sale_price() !== null && $product->get_sale_price() !== '') { ?>
                             <span class="text-primary text-decoration-line-through me-1">
-                    <?php echo number_format($product->get_regular_price()); ?>
-                </span> <?php echo number_format($product->get_sale_price());
+                <?php echo number_format($product->get_regular_price()); ?>
+            </span> <?php echo number_format($product->get_sale_price());
                         } else {
                             echo number_format($product->get_regular_price());
                         }
@@ -34,6 +34,7 @@ $product_id = get_the_ID();
                     ?>
                     <span class="text-primary ms-1">تومان</span>
                 <?php endif; ?>
+
             </p>
             <!-- Button trigger modal -->
             <a data-bs-toggle="modal" data-bs-target="#modal-<?= get_the_ID(); ?>" type="button" href="#"

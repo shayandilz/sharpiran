@@ -1,4 +1,10 @@
-<?php get_header(); ?>
+<?php get_header();
+// Modify search query to only search for products
+$search_query = new WP_Query(array(
+    'post_type' => 'product',
+    's' => get_search_query()
+));
+?>
 <div class="container py-5">
     <div class="w-100 mb-5 mx-auto">
         <form class="w-100 pb-3"

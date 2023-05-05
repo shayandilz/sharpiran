@@ -17,7 +17,7 @@ function GoldSearchResults($data)
 //    $count = count($termsTax);
 
     $mainQuery = new WP_Query(array(
-        'post_type' => array('post', 'product'),
+        'post_type' => array('product'),
         's' => sanitize_text_field($data['term'])
     ));
     $mainResults = array(
