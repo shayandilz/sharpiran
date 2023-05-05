@@ -30,7 +30,7 @@ do_action('woocommerce_before_customer_login_form'); ?>
         <?php endif; ?>
         <div class="container px-0">
             <div class="row justify-content-center">
-                <div class="<?= !is_front_page() ? 'col-lg-6': '';?> col-12">
+                <div class="col-12">
                     <ul class="nav nav-pills my-3 justify-content-center mb-lg-3" role="tablist">
                         <li class="nav-item shadow-sm" role="presentation">
                             <button class="nav-link nav-link active" id="form-login-tab-<?= is_front_page() ? get_the_ID() : ''; ?>" data-bs-toggle="tab"

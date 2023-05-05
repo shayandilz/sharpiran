@@ -27,12 +27,17 @@ $search_query = new WP_Query(array(
     </div>
     <?php
     if (have_posts()) { ?>
-        <div class="row my-2 row-cols-lg-3 justify-content-lg-between row-cols-1">
-            <?php while (have_posts()) {
-                the_post();
-                get_template_part('template-parts/product_card');
-            } ?>
-        </div>
+        <?php if (have_posts()) { ?>
+            <div class="row my-2 row-cols-lg-3 justify-content-lg-between row-cols-1">
+                <?php while (have_posts()) {
+                    the_post();
+                    if (get_post_type() === 'product') {
+                        get_template_part('template-parts/product_card');
+                    }
+                } ?>
+            </div>
+        <?php } ?>
+
         <?php
         $links = paginate_links(array(
             'type' => 'array',

@@ -329,11 +329,11 @@ add_filter( 'is_xml_preprocess_enabled', 'wpai_is_xml_preprocess_enabled', 10, 1
 function wpai_is_xml_preprocess_enabled( $is_enabled ) {
 	return false;
 }
-//function removeWooCommerceDownloadSection($items) {
-//    unset( $items['downloads'] );
-//    return $items;
-//}
-//add_filter('woocommerce_account_menu_items', 'removeWooCommerceDownloadSection', 10, 1);
+function removeWooCommerceDownloadSection($items) {
+    unset( $items['downloads'] );
+    return $items;
+}
+add_filter('woocommerce_account_menu_items', 'removeWooCommerceDownloadSection', 10, 1);
 
 
 // create hook for file uploading
