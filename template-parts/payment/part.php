@@ -78,7 +78,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                    placeholder="نام"
                    value="<?php echo $first_name; ?>"
                    firstName-id="<?= get_the_ID(); ?>"
-                   required id="name floatingName"
+                   required id="name-part-<?= get_the_ID(); ?>"
                    type="text"
                    name="account_first_name"
                    class="name form-control"/>
@@ -91,7 +91,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                    value="<?php echo $last_name; ?>"
                    lastName-id="<?= get_the_ID(); ?>"
                    required
-                   id="lastname floatinglastName"
+                   id="lastname-part-<?= get_the_ID(); ?>"
                    type="text"
                    name="account_last_name"
                    class="name form-control"/>
@@ -103,7 +103,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                    value="<?php echo $mobile_number; ?>"
                    phone-id="<?= get_the_ID(); ?>"
                    required
-                   id="phone floatingPhone"
+                   id="phone-part-<?= get_the_ID(); ?>"
                    type="tel"
                    name="phone"
                    class="phone form-control"/>
@@ -114,7 +114,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                 <?= $user_identity ? 'disabled' : '' ?>
                    value="<?php echo $user_identity ?: ''; ?>"
                    user-id="<?= get_the_ID(); ?>"
-                   id="floatingID"
+                   id="floatingID-part-<?= get_the_ID(); ?>"
                    type="text"
                    name="user_identity"
                    class="user_identity form-control"/>
@@ -125,7 +125,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
                 <?= $user_code ? 'disabled' : '' ?>
                    value="<?php echo $user_code ?: ''; ?>"
                    user-code="<?= get_the_ID(); ?>"
-                   id="floatingCode"
+                   id="floatingCode-part-<?= get_the_ID(); ?>"
                    type="text"
                    name="user_code"
                    class="user_code form-control"/>
@@ -137,7 +137,7 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         </div>
         <div class="col-md-12 form-floating">
             <input required
-                   id="address floatingAddress"
+                   id="address-part-<?= get_the_ID(); ?>"
                    address-id="<?= get_the_ID(); ?>"
                    type="text"
                    value="<?= $billing_address_1 ?: ''; ?>"
@@ -160,8 +160,15 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <!--	// set action name-->
         <input name="action" value="upload_file" type="hidden"/>
         <div class="col-md-12 mt-3 ">
-            <button class="btn btn-addToCard w-100" type="submit">ثبت سفارش
-            </button>
+            <?php if (is_user_logged_in()) { ?>
+                <button class="btn btn-addToCard w-100" type="submit">ثبت سفارش</button>
+            <?php } else {?>
+                <a type="button" class="btn btn-addToCard w-100" data-bs-toggle="modal" data-bs-target="#loginModal"
+                   href="#">
+                    ورود و ثبت سفارش
+                </a>
+            <?php } ?>
+
         </div>
     </div>
     <input type="text" value="<?= get_the_ID(); ?>" id="product_id"

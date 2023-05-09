@@ -19,7 +19,7 @@
                     if ($menu) :
                         wp_nav_menu(array(
                             'theme_location' => 'headerMenuLocation',
-                            'menu_class' => 'navbar-nav gap-3 desktop-menu',
+                            'menu_class' => 'navbar-nav gap-4 desktop-menu',
                             'container' => false,
                             'menu_id' => 'navbarTogglerMenu',
                             'item_class' => 'nav-item',

@@ -5,7 +5,7 @@ $product_id = get_the_ID();
 ?>
 <div class="p-lg-2 p-1">
     <div class="card text-center product-card rounded-3 p-2 overflow-hidden">
-        <div class="ratio ratio-1x1 animate__animated animate__jackInTheBox">
+        <div class="ratio ratio-1x1 animate__animated animate__backInDown">
             <?php $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail'); ?>
             <img src="<?php echo $image[0]; ?>"
                  class="card-img-top rounded-3 p-1 p-lg-2 bg-white"
@@ -53,7 +53,7 @@ $product_id = get_the_ID();
                     <div class="modal-body flex-row-reverse d-flex flex-wrap position-relative">
                         <div class="col-12 col-lg-4 pb-3 pb-lg-4 overflow-scroll-y position-lg-sticky top-0 h-100">
                             <?php get_template_part('template-parts/product/thumbnail-gallery'); ?>
-                            <table class="product-table col-11 mx-auto px-3 mt-2">
+                            <table class="product-table col-11 mx-auto px-3 mt-3">
                                 <tbody>
                                 <?php
                                 global $product;
@@ -91,7 +91,7 @@ $product_id = get_the_ID();
                                 ?>
                                 </tbody>
                             </table>
-                            <p class="pt-3"><?= $product->post->post_excerpt; ?></p>
+                            <p class="pt-4 text-justify"><?= $product->post->post_excerpt; ?></p>
                         </div>
                         <div class="col-12 col-lg-8 p-lg-3 p-1 overflow-scroll-y position-sticky top-0 h-100">
                             <div class="d-flex justify-content-between">
@@ -120,54 +120,50 @@ $product_id = get_the_ID();
                                     <?php endif; ?>
                                 </p>
                             </div>
-                            <?php if (is_user_logged_in()) { ?>
-                                <ul class="nav nav-pills my-3 justify-content-center justify-content-lg-start mb-lg-3"
-                                    id="pills-tab" role="tablist">
-                                    <li class="nav-item shadow-sm" role="presentation">
-                                        <button class="nav-link active" id="pills-part-tab-<?= get_the_ID(); ?>"
-                                                data-bs-toggle="pill"
-                                                data-bs-target="#pills-part-<?= get_the_ID(); ?>" type="button"
-                                                role="tab"
-                                                aria-controls="pills-part-<?= get_the_ID(); ?>"
-                                                aria-selected="true">
-                                            قسطی
-                                        </button>
-                                    </li>
-                                    <li class="nav-item shadow-sm" role="presentation">
-                                        <button class="nav-link" id="pills-front-tab-<?= get_the_ID(); ?>"
-                                                data-bs-toggle="pill"
-                                                data-bs-target="#pills-front-<?= get_the_ID(); ?>" type="button"
-                                                role="tab"
-                                                aria-controls="pills-front-<?= get_the_ID(); ?>"
-                                                aria-selected="false">
-                                            نقدی
-                                        </button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="pills-tabContent">
-                                    <div class="tab-pane fade show active" id="pills-part-<?= get_the_ID(); ?>"
-                                         role="tabpanel"
-                                         aria-labelledby="pills-part-tab-<?= get_the_ID(); ?>" tabindex="0">
-                                        <div class="form-body">
-                                            <?php get_template_part('template-parts/payment/part'); ?>
-                                        </div>
-                                        <div class="form_result">
-
-                                        </div>
+                            <ul class="nav nav-pills my-3 justify-content-center justify-content-lg-start mb-lg-3"
+                                id="pills-tab" role="tablist">
+                                <li class="nav-item shadow-sm" role="presentation">
+                                    <button class="nav-link active" id="pills-part-tab-<?= get_the_ID(); ?>"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#pills-part-<?= get_the_ID(); ?>" type="button"
+                                            role="tab"
+                                            aria-controls="pills-part-<?= get_the_ID(); ?>"
+                                            aria-selected="true">
+                                        قسطی
+                                    </button>
+                                </li>
+                                <li class="nav-item shadow-sm" role="presentation">
+                                    <button class="nav-link" id="pills-front-tab-<?= get_the_ID(); ?>"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#pills-front-<?= get_the_ID(); ?>" type="button"
+                                            role="tab"
+                                            aria-controls="pills-front-<?= get_the_ID(); ?>"
+                                            aria-selected="false">
+                                        نقدی
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-part-<?= get_the_ID(); ?>"
+                                     role="tabpanel"
+                                     aria-labelledby="pills-part-tab-<?= get_the_ID(); ?>" tabindex="0">
+                                    <div class="form-body">
+                                        <?php get_template_part('template-parts/payment/part'); ?>
                                     </div>
-                                    <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
-                                         aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="1">
-                                        <div class="form-body">
-                                        <?php get_template_part('template-parts/payment/front'); ?>
-                                        </div>
-                                        <div class="form_result-front">
+                                    <div class="form_result">
 
-                                        </div>
                                     </div>
                                 </div>
-                            <?php } else {
-                                echo do_shortcode('[woocommerce_my_account]');
-                            } ?>
+                                <div class="tab-pane fade" id="pills-front-<?= get_the_ID(); ?>" role="tabpanel"
+                                     aria-labelledby="pills-front-tab-<?= get_the_ID(); ?>" tabindex="1">
+                                    <div class="form-body">
+                                        <?php get_template_part('template-parts/payment/front'); ?>
+                                    </div>
+                                    <div class="form_result-front">
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
