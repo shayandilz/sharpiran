@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         upfrontPayment.value = upfrontPaymentValue;
         interestPayment.value = interestPaymentValue;
-        totalPayment.value = Math.ceil(totalPaymentValue.toFixed(0)/1000) * 1000;
+        totalPayment.value = Math.ceil(totalPaymentValue.toFixed(0) / 1000) * 1000;
         lastPayment.value = last;
     };
 
@@ -74,80 +74,131 @@ document.addEventListener('DOMContentLoaded', function () {
 let ajax_url = jsData.api_root
 $(document).on('submit', '.add-product', function (e) {
     e.preventDefault();
+    let $form = $(this); // Store the reference to the form element
     $('.form-body').addClass('spinner-custom');
-
     let resultDiv = $('.form_result');
-    let formDiv = $('.form-body')
-    let fileUpload = $(this).find('[file-id="' + $(this).find('#product_id').val() + '"]').val();
-    let checkedFile = fileUpload.match(/\b(http|https)?(:\/\/)?(\S*)\.(\w{2,4})(.*)/g)
-    if (checkedFile === null) {
-        checkedFile = ['']
+    let formDiv = $('.form-body');
+// Get the selected payment value
+    let paymentRange = $form.find('[range-id="' + $form.find('#product_id').val() + '"]').val();
+    // Get the label corresponding to the selected payment value
+    let paymentLabels = $('.payment-label');
+    let selectedLabel = $(paymentLabels[paymentRange - 1]).text();
+
+
+
+    // Validate file types
+    let fileInput = $form.find('[type="file"]');
+    let allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    let files = fileInput[0].files;
+    let invalidFiles = Array.from(files).filter(file => !allowedTypes.includes(file.type));
+
+    if (invalidFiles.length > 0) {
+        // Display error message for invalid file types
+        let errorMessage = 'Invalid file type(s). Only JPG, PNG, and PDF files are allowed.';
+        resultDiv.html('<div class="alert alert-danger">' + errorMessage + '</div>');
+        return;
     }
-    const formId = $(this).attr('data-id');
-    let endpointOrder = jsData.root_url + '/wp-json/wc/v3/orders'
-    let apiDataOrder = {
-        status: 'processing',
-        billing:
-            {
-                first_name: $(this).find('[firstName-id="' + $(this).find('#product_id').val() + '"]').val(),
-                last_name: $(this).find('[lastName-id="' + $(this).find('#product_id').val() + '"]').val(),
-                phone: $(this).find('[phone-id="' + $(this).find('#product_id').val() + '"]').val(),
-                address_1: $(this).find('[address-id="' + $(this).find('#product_id').val() + '"]').val(),
-                state: $(this).find('[state-id="' + $(this).find('#product_id').val() + '"]').attr('data-active-state'),
-                city: $(this).find('[city-id="' + $(this).find('#product_id').val() + '"]').attr('data-active-city'),
 
-            },
+    $.ajax({
+        url: ajax_url,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-WP-Nonce', jsData.apiNonce);
+        },
+        data: new FormData(this),
+        success: function (response) {
 
-        meta_data: [
-            {
-                key: 'user_identity',
-                value: $(this).find('[user-id="' + $(this).find('#product_id').val() + '"]').val(),
-            },
-            {
-                key: 'user_code',
-                value: $(this).find('[user-code="' + $(this).find('#product_id').val() + '"]').val(),
-            },
-            {
-                key:'فایل چگ',
-                value: checkedFile[0]
+            // Remove HTML tags from the response
+            let responseWithoutTags = response.replace(/<\/?[^>]+(>|$)/g, "");
+            let filesParsed = JSON.parse(responseWithoutTags)
+            let fileUrls = filesParsed.urls || [];
+            // Use the extracted file URLs as needed
+            let checkedFiles = fileUrls;
+
+            // ... continue with your code ...
+
+            if (checkedFiles.length === 0) {
+                checkedFiles = [''];
             }
-        ],
-        line_items: [
-            {
-                product_id: formId,
-                quantity: $(this).find('[data-product-id="' + $(this).find('#product_id').val() + '"]').val(),
+            let meta_data = checkedFiles.map((url, index) => ({
+                key: `فایل چک ${index + 1}`,
+                value: url
+            }));
+            if (meta_data.length === 0) {
+                meta_data = [{ key: 'فایل چک 1', value: '' }];
+            }
+
+            const formId = $form.attr('data-id');
+            let endpointOrder = jsData.root_url + '/wp-json/wc/v3/orders'
+            let apiDataOrder = {
+                status: 'processing',
+                billing:
+                    {
+                        first_name: $form.find('[firstName-id="' + $form.find('#product_id').val() + '"]').val(),
+                        last_name: $form.find('[lastName-id="' + $form.find('#product_id').val() + '"]').val(),
+                        phone: $form.find('[phone-id="' + $form.find('#product_id').val() + '"]').val(),
+                        address_1: $form.find('[address-id="' + $form.find('#product_id').val() + '"]').val(),
+                        state: $form.find('[state-id="' + $form.find('#product_id').val() + '"]').attr('data-active-state'),
+                        city: $form.find('[city-id="' + $form.find('#product_id').val() + '"]').attr('data-active-city'),
+
+                    },
+
                 meta_data: [
                     {
-                        key: 'شیوه پرداخت',
-                        value: $(this).find('[method-product-id="' + $(this).find('#product_id').val() + '"]').val(),
+                        key: 'user_identity',
+                        value: $form.find('[user-id="' + $form.find('#product_id').val() + '"]').val(),
                     },
                     {
-                        key: 'مبلغ',
-                        value: $(this).find('[price-id="' + $(this).find('#product_id').val() + '"]').val()
+                        key: 'user_code',
+                        value: $form.find('[user-code="' + $form.find('#product_id').val() + '"]').val(),
                     },
                     {
-                        key:'فایل چگ',
-                        value: checkedFile[0]
-                    }
-                ]
-            },
+                        key: 'روش های بازپرداخت',
+                        value: selectedLabel
 
-        ],
-        customer_id: jsData.user_id
-    }
-    $.ajax({
-        url: endpointOrder + "?consumer_key=" + jsData.apiUser + "&consumer_secret=" + jsData.apiKey,
-        type: "POST",
-        data: JSON.stringify(apiDataOrder),
-        contentType: "application/json",
-        dataType: 'json',
-        success: function (result) {
-            console.log(result)
-            $('.form-body').removeClass('spinner-custom');
-            formDiv.fadeOut()
-            if (result.status == 'processing') {
-                resultDiv.html(`
-                    <div class="card order-card border-0">  
+
+                    },
+                    ...meta_data
+
+                ],
+                line_items: [
+                    {
+                        product_id: formId,
+                        quantity: $form.find('[data-product-id="' + $form.find('#product_id').val() + '"]').val(),
+                        meta_data: [
+                            {
+                                key: 'شیوه پرداخت',
+                                value: $form.find('[method-product-id="' + $form.find('#product_id').val() + '"]').val(),
+                            },
+                            {
+                                key: 'مبلغ',
+                                value: $form.find('[price-id="' + $form.find('#product_id').val() + '"]').val()
+                            },
+                            {
+                                key: 'تعداد اقساط',
+                                value: selectedLabel
+                            },
+                            ...meta_data
+                        ]
+                    },
+
+                ],
+                customer_id: jsData.user_id
+            }
+            $.ajax({
+                url: endpointOrder + "?consumer_key=" + jsData.apiUser + "&consumer_secret=" + jsData.apiKey,
+                type: "POST",
+                data: JSON.stringify(apiDataOrder),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (result) {
+                    $('.form-body').removeClass('spinner-custom');
+                    formDiv.fadeOut()
+                    if (result.status == 'processing') {
+                        resultDiv.html(`
+                    <div class="card order-card border-0">
                         <div class="card-body bg-primary rounded">
                             <div class="invoice-middle text-center">
                                 <div class="alert alert-success fs-2 mb-3" role="alert">سفارش با موفقیت ایجاد شد</div>
@@ -168,8 +219,8 @@ $(document).on('submit', '.add-product', function (e) {
                             </div>
                         </div>
                 `)
-            } else {
-                resultDiv.html(`
+                    } else {
+                        resultDiv.html(`
                     <div class="card border-0">
                         <div class="card-body">
                             <div class="invoice-middle">
@@ -178,46 +229,51 @@ $(document).on('submit', '.add-product', function (e) {
                         </div>
                     </div>
                 `)
-            }
-            $(this).trigger('reset');
-
-            // Update user billing address
-            let updateData = {
-                billing: {
-                    address_1: apiDataOrder.billing.address_1,
-                    phone: apiDataOrder.billing.phone,
-                    city: apiDataOrder.billing.city,
-                    state: apiDataOrder.billing.state
-                },
-                meta_data: [
-                    {
-                        key: 'user_identity',
-                        value: apiDataOrder.meta_data[0].value
-                    },
-                    {
-                        key: 'user_code',
-                        value: apiDataOrder.meta_data[1].value
                     }
-                ]
-            };
-            $.ajax({
-                url: jsData.root_url + '/wp-json/wc/v3/customers/' + jsData.user_id + '?consumer_key=' + jsData.apiUser + '&consumer_secret=' + jsData.apiKey,
-                type: "PUT",
-                data: JSON.stringify(updateData),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (result) {
+                    $(this).trigger('reset');
 
-                },
+                    // Update user billing address
+                    let updateData = {
+                        billing: {
+                            address_1: apiDataOrder.billing.address_1,
+                            phone: apiDataOrder.billing.phone,
+                            city: apiDataOrder.billing.city,
+                            state: apiDataOrder.billing.state
+                        },
+                        meta_data: [
+                            {
+                                key: 'user_identity',
+                                value: apiDataOrder.meta_data[0].value
+                            },
+                            {
+                                key: 'user_code',
+                                value: apiDataOrder.meta_data[1].value
+                            }
+                        ]
+                    };
+                    $.ajax({
+                        url: jsData.root_url + '/wp-json/wc/v3/customers/' + jsData.user_id + '?consumer_key=' + jsData.apiUser + '&consumer_secret=' + jsData.apiKey,
+                        type: "PUT",
+                        data: JSON.stringify(updateData),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function (result) {
+
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }.bind(this),
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.responseText);
-                }
-            });
-        }.bind(this),
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.responseText);
 
-            // ...handle error...
+                    // ...handle error...
+                }
+            })
+
         }
-    })
+    });
+
+
 })

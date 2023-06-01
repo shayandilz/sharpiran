@@ -345,22 +345,35 @@ function upload_file_callback()
     // check security nonce which one we created in html form and sending with data.
     check_ajax_referer('uploadingFile', 'security');
 
-    // removing white space
-    $fileName = preg_replace('/\s+/', '-', $_FILES["file"]["name"]);
+    $uploadedFiles = $_FILES["file"]; // Get the array of uploaded files
 
-    // removing special character but keep . character because . seprate to extantion of file
-    $fileName = preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
+    $uploadedUrls = array(); // Array to store the URLs of uploaded files
 
-    // rename file using time
-    $fileName = time() . '-' . $fileName;
+    // Loop through each uploaded file
+    for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
+        // Remove whitespace and special characters from the file name
+        $fileName = preg_replace('/\s+/', '-', $uploadedFiles['name'][$i]);
+        $fileName = preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName);
+        $fileName = time() . '-' . $fileName; // Rename file using time
 
-    // upload file
-    if (wp_upload_bits($fileName, null, file_get_contents($_FILES["file"]["tmp_name"]))) {
-        var_dump(wp_upload_bits($fileName, null, file_get_contents($_FILES["file"]["tmp_name"]))['url']);
-    } else {
-        echo json_encode(['code' => 404, 'msg' => 'Some thing is wrong! Try again.']);
+        // Upload the file
+        $uploadResult = wp_upload_bits($fileName, null, file_get_contents($uploadedFiles['tmp_name'][$i]));
+
+        if ($uploadResult['error'] === false) {
+            // File uploaded successfully
+            $uploadedUrls[] = $uploadResult['url'];
+        } else {
+            // Error uploading file
+            echo json_encode(['code' => 404, 'msg' => 'Something went wrong while uploading the file.']);
+            exit;
+        }
     }
+
+    // All files uploaded successfully
+    echo json_encode(['urls' => $uploadedUrls]);
+    exit;
 }
+
 function add_custom_widget_area() {
     register_sidebar(
         array(

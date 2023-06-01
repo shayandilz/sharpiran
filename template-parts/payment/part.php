@@ -39,8 +39,8 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
         <!-- HTML code for the range meter and payment details -->
         <div class="form-group">
             <label for="payment-range">روش های بازپرداخت</label>
-            <input type="range" class="form-range" id="payment-range" value="0" min="1" max="3" step="1">
-            <div id="payment-labels" class="d-flex justify-content-between fs-5">
+            <input range-id="<?= get_the_ID(); ?>" type="range" class="form-range" id="payment-range" value="0" min="1" max="3" step="1">
+            <div  id="payment-labels" class="d-flex justify-content-between fs-5">
                 <div class="badge rounded-circle bg-red payment-label">۱</div>
                 <div class="badge rounded-circle bg-red payment-label">۲</div>
                 <div class="badge rounded-circle bg-red payment-label">۳</div>
@@ -152,13 +152,13 @@ $lastAmount = $upfrontPayment + $totalAmountPaid;
 <!--            <input type="file" class="form-control bg-red text-white" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">-->
 <!--        </div>-->
         <div class="col-md-12">
-            <label class="form-label">آپلود چک</label>
-            <input file-id="<?= get_the_ID(); ?>" id="file" name="file" type="file" class="form-control file-pdf"/>
+            <label class="form-label">آپلود چک (ها) JPG/PNG/PDF</label>
+            <input file-id="<?= get_the_ID(); ?>" id="file" name="file[]" type="file" class="form-control file-pdf" multiple />
         </div>
         <input name="security" value="<?php echo wp_create_nonce("uploadingFile"); ?>" type="hidden">
-
         <!--	// set action name-->
         <input name="action" value="upload_file" type="hidden"/>
+
         <div class="col-md-12 mt-3 ">
             <?php if (is_user_logged_in()) { ?>
                 <button class="btn btn-addToCard w-100" type="submit">ثبت سفارش</button>
