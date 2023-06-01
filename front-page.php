@@ -4,21 +4,18 @@ get_header(); ?>
 
 <?php if (have_posts()) {
     the_post(); ?>
-    <?php get_template_part('template-parts/homePage/hero');?>
-    <div class="container-fluid min-vh-100 mt-2">
-        <div class="row justify-content-center align-items-center pb-3">
-            <div class="col-11">
-                <ul class="nav nav-tabs border-0 flex-nowrap overflow-tab justify-content-lg-center align-items-center py-3 gap-2"
-                    id="myTab" role="tablist">
+    <?php get_template_part('template-parts/homePage/hero'); ?>
+    <div class="container min-vh-100 mt-2">
+        <div class="row justify-content-center align-items-start py-3">
+            <div class="col-lg-3">
+                <h3 class="text-red fw-bold fs-5">دسته بندی محصولات</h3>
+                <ul class="category-list justify-content-center pt-2 gap-3 align-items-center list-unstyled shadow-sm p-3 rounded">
                     <?php
-                    $i = 0;
-                    $j = 0;
-
                     $taxonomy = 'product_cat';
                     $orderby = 'name';
                     $show_count = 0;      // 1 for yes, 0 for no
                     $pad_counts = 0;      // 1 for yes, 0 for no
-                    $hierarchical = 1;      // 1 for yes, 0 for no
+                    $hierarchical = 1;    // 1 for yes, 0 for no
                     $title = '';
 
                     $args = array(
@@ -28,80 +25,109 @@ get_header(); ?>
                         'pad_counts' => $pad_counts,
                         'hierarchical' => $hierarchical,
                         'title_li' => $title,
-                        'hide_empty' => 1
+                        'hide_empty' => 0 // Show empty categories as well
                     );
+
                     $all_categories = get_categories($args);
-                    foreach ($all_categories as $cat) {
-                        if ($cat->category_parent == 0) {
-                            $category_id = $cat->term_id;
+
+                    // Add an option to display all products
+                    echo '<li>';
+                    echo '<label>';
+                    echo '<input type="checkbox" class="category-filter" value="all" checked > همه محصولات';
+                    echo '</label>';
+                    echo '</li>';
+
+                    function display_categories($categories)
+                    {
+                        foreach ($categories as $category) {
+                            $category_id = $category->term_id;
                             $thumbnail_id = get_term_meta($category_id, 'thumbnail_id', true);
                             $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
-                            ?>
-                            <li class="nav-item" role="presentation">
-                                <button class="category-tab animate__animated animate__bounceIn animate__delay-<?= $j;?>s border-0 <?= $thumbnail_id ? 'd-flex align-items-center' : '' ;?> nav-link <?php if ($i == 0) {
-                                    $i = 1;
-                                    echo 'active';
-                                }
-                                ?>" id="cat-<?= $category_id; ?>-tab" data-bs-toggle="tab"
-                                        data-bs-target="#cat-<?= $category_id; ?>" type="button" role="tab"
-                                        aria-controls="cat-<?= $category_id; ?>"
-                                        aria-selected="true">
-                                    <?php if ($thumbnail_id) { ?>
-                                        <img class="w-100" title="<?php echo $cat->name; ?>"
-                                             src="<?php echo $thumbnail_url; ?>" alt="<?php echo $cat->name; ?>">
-                                    <?php } else {
-                                        echo $cat->name;
-                                    } ?>
-                                </button>
-                            </li>
+                            $category_name = $category->name;
+                            $has_children = $category->category_count > 0;
 
-                        <?php }
-                        $j++;
+                            // Output category name with checkbox
+                            echo '<li>';
+                            echo '<label>';
+                            echo '<input type="checkbox" class="category-filter" value="' . $category_id . '"> ';
+                            echo $category_name;
+                            if($thumbnail_url) {
+                                echo '<img class="img-thumbnail mx-1" width="40" height="40" src="' . $thumbnail_url . '">';
+                            };
+                            echo '</label>';
+
+                            if ($has_children) {
+                                // Get child categories
+                                $child_args = array(
+                                    'taxonomy' => 'product_cat',
+                                    'child_of' => $category_id,
+                                    'hide_empty' => 0
+                                );
+                                $child_categories = get_categories($child_args);
+
+                                if (!empty($child_categories)) {
+                                    echo '<ul class="ps-3 list-unstyled">';
+                                    display_categories($child_categories);
+                                    echo '</ul>';
+                                }
+                            }
+
+                            echo '</li>';
+                        }
                     }
+
+                    display_categories($all_categories);
                     ?>
                 </ul>
-                <div class="tab-content" id="myTabContent">
-                    <?php
-                    foreach ($all_categories as $key => $cats) {
-                        $category_id = $cats->term_id;
-                        ?>
-                        <div class="tab-pane fade <?php if ($key == 0) {
-                            echo 'show active';
-                        }
-                        ?>" id="cat-<?= $category_id; ?>" role="tabpanel"
-                             aria-labelledby="cat-<?= $category_id; ?>-tab">
-                            <?php
-
-                            $args = array(
-                                'post_type' => 'product',
-                                'post_status' => 'publish',
-                                'ignore_sticky_posts' => 1,
-                                'posts_per_page' => -1,
-                                'tax_query' => array(
-                                    array(
-                                        'taxonomy' => 'product_cat',
-                                        'field' => 'term_id',
-                                        'terms' => $category_id,
-                                        'operator' => 'IN'
-                                    )
-                                )
-                            );
-                            $loop = new WP_Query($args);
-                            if ($loop->have_posts()) { ?>
-                            <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2">
-                                <?php while ($loop->have_posts()) : $loop->the_post();
-                                    get_template_part('template-parts/product_card');
-                                endwhile;
-                                } ?>
-                            </div>
-                            <?php wp_reset_postdata();
-
-                            ?>
-                        </div>
-                    <?php } ?>
-                </div>
-
             </div>
+            <script>
+                const ajaxUrl = '<?php echo admin_url('admin-ajax.php'); ?>';
+            </script>
+            <div class="col-lg-9 product-cards">
+                <div class="row row-cols-lg-3 row-cols-1" id="product-container">
+                    <?php
+                    // Filter variables
+                    $selected_categories = isset($_GET['category']) ? explode(',', $_GET['category']) : array();
+
+                    // Check if 'all' is selected
+                    if (in_array('all', $selected_categories)) {
+                        $selected_categories = array(); // Clear the array to show all products
+                    }
+
+                    // Display product cards
+                    $product_args = array(
+                        'post_type' => 'product',
+                        'post_status' => 'publish',
+                        'ignore_sticky_posts' => 1,
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'operator' => 'IN',
+                                'field' => 'term_id',
+                                'terms' => $selected_categories
+                            )
+                        )
+                    );
+
+                    // Modify the query to show all products if no category is selected
+                    if (empty($selected_categories)) {
+                        unset($product_args['tax_query']);
+                    }
+                    ?>
+                        <?php $product_loop = new WP_Query($product_args);
+                        if ($product_loop->have_posts()) {
+                            while ($product_loop->have_posts()) : $product_loop->the_post();
+                                // Output product card here
+                                ?>
+                                <?php get_template_part('template-parts/product_card'); ?>
+                            <?php
+                            endwhile;
+                            wp_reset_postdata();
+                        }
+                        ?>
+                </div>
+            </div>
+
         </div>
     </div>
 <?php }

@@ -39,6 +39,7 @@ $product_id = get_the_ID();
             <!-- Button trigger modal -->
             <a data-bs-toggle="modal" data-bs-target="#modal-<?= get_the_ID(); ?>" type="button" href="#"
                class="stretched-link btn btn-addToCard rounded-1">ثبت سفارش</a>
+            <a class="position-absolute top-0 start-0 ps-4 pt-4 fs-4" href="<?php the_permalink(); ?>"><i class="bi bi-info-circle"></i></a>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="modal-<?= get_the_ID(); ?>" tabindex="-1"

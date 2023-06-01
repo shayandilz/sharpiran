@@ -72,30 +72,54 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
-    $('#contact-form').submit(function(event) {
-        event.preventDefault();
-        var email = $('#input_1_4').val();
-        var phone = $('#input_1_3').val();
+// Handle category checkbox change event
+    $('.category-filter').on('change', function () {
+        var selectedCategories = [];
 
+        // Check if "All Products" option is selected
+        var isAllSelected = false;
+        $('.category-filter:checked').each(function () {
+            var category = $(this).val();
+            if (category === 'all') {
+                isAllSelected = true;
+            } else {
+                selectedCategories.push(category);
+            }
+        });
+
+        // If "All Products" is selected, clear other selected categories
+        if (isAllSelected) {
+            selectedCategories = [];
+        }
+
+        // AJAX request to update the product list
         $.ajax({
-            url: 'submit-form.php',
+            url: ajaxUrl,
             type: 'POST',
-            data: { email: email, phone: phone },
-            success: function() {
-                alert('Form submitted successfully!');
-                location.reload(); // add this line to refresh the page
+            data: {
+                action: 'update_product_list',
+                categories: selectedCategories
             },
-            error: function() {
-                alert('Error submitting form.');
+            beforeSend: function () {
+                // Show loading indicator or perform any pre-request tasks
+                $('.product-cards').addClass('loading');
+            },
+            success: function (response) {
+                // Update the product list
+                $('.product-cards .row').html(response.productListHtml);
+                $('.product-cards').removeClass('loading');
+                // Show message if response is empty
+                if (response.productListHtml.trim() === '') {
+                    $('.product-cards .row').html('<h4 class="text-center w-100 py-3">محصولی یافت نشد</h4>');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
         });
     });
-    if ($(window).width() < 960 ) {
-        $('.contact-us__form .form-floating').addClass('col-12');
-    }
-    else if ($(window).width() > 960 ) {
-        $('.contact-us__form .form-floating').removeClass('col-12');
-    };
+
+
     $(window).scroll(function () { // check if scroll event happened
         if ($(document).scrollTop() > 30) { // check if user scrolled more than 50 from top of the browser window
             $('.sticky__nav').addClass('position-fixed top-0 shadow-sm');

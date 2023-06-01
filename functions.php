@@ -361,3 +361,69 @@ function upload_file_callback()
         echo json_encode(['code' => 404, 'msg' => 'Some thing is wrong! Try again.']);
     }
 }
+function add_custom_widget_area() {
+    register_sidebar(
+        array(
+            'name'          => 'Custom Widget Area',
+            'id'            => 'custom-widget-area',
+            'description'   => 'This is a custom widget area.',
+            'before_widget' => '<div class="widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        )
+    );
+}
+add_action('widgets_init', 'add_custom_widget_area');
+// AJAX action to update the product list
+add_action('wp_ajax_update_product_list', 'update_product_list');
+add_action('wp_ajax_nopriv_update_product_list', 'update_product_list');
+
+function update_product_list() {
+    // Get the selected categories from the AJAX request
+    $selected_categories = $_POST['categories'];
+
+    // Update the product query based on selected categories
+    $product_args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'ignore_sticky_posts' => 1,
+        'posts_per_page' => 9,
+        'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'product_cat',
+                'operator' => 'IN',
+                'field' => 'term_id',
+                'terms' => $selected_categories
+            )
+        )
+    );
+
+    // Modify the query to show all products if no category is selected
+    if (empty($selected_categories)) {
+        unset($product_args['tax_query']);
+    }
+
+    // Perform the product query
+    $product_loop = new WP_Query($product_args);
+
+    // Output the product list HTML
+    ob_start();
+    if ($product_loop->have_posts()) {
+        while ($product_loop->have_posts()) : $product_loop->the_post();
+            get_template_part('template-parts/product_card');
+        endwhile;
+        wp_reset_postdata();
+    }
+    $product_list_html = ob_get_clean();
+
+    // Prepare the response
+    $response = array(
+        'productListHtml' => $product_list_html
+    );
+
+    // Send the JSON response
+    wp_send_json($response);
+}
+
