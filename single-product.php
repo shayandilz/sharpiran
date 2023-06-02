@@ -3,7 +3,7 @@
 while (have_posts()) :
     the_post();
     ?>
-    <section class="container py-2">
+    <section class="py-2">
         <div class="row justify-content-between">
             <article class="col-12 text-dark text-justify">
                 <? the_content(); ?>

@@ -72,51 +72,49 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 $(document).ready(function () {
-// Handle category checkbox change event
-    $('.category-filter').on('change', function () {
+// Attach the event handler to a parent element that exists in the DOM when the page loads
+    $(document).on('change', '.category-filter', function () {
         var selectedCategories = [];
 
         // Check if "All Products" option is selected
         var isAllSelected = false;
         $('.category-filter:checked').each(function () {
             var category = $(this).val();
-            if (category === 'all') {
+            if (category == 'all') {
                 isAllSelected = true;
             } else {
                 selectedCategories.push(category);
             }
         });
 
-        // If "All Products" is selected, clear other selected categories
-        if (isAllSelected) {
-            selectedCategories = [];
-        }
+        // Filter the product list based on selected categories
+        $('.product-card').each(function() {
+            var productCategories = $(this).attr('data-categories');
+            console.log('Product Categories:', productCategories);
+            console.log('Selected Categories:', selectedCategories);
 
-        // AJAX request to update the product list
-        $.ajax({
-            url: ajaxUrl,
-            type: 'POST',
-            data: {
-                action: 'update_product_list',
-                categories: selectedCategories
-            },
-            beforeSend: function () {
-                // Show loading indicator or perform any pre-request tasks
-                $('.product-cards').addClass('loading');
-            },
-            success: function (response) {
-                // Update the product list
-                $('.product-cards .row').html(response.productListHtml);
-                $('.product-cards').removeClass('loading');
-                // Show message if response is empty
-                if (response.productListHtml.trim() === '') {
-                    $('.product-cards .row').html('<h4 class="text-center w-100 py-3">محصولی یافت نشد</h4>');
+            // Show all products if "All Products" is selected or no category is selected
+            if (isAllSelected || selectedCategories.length === 0) {
+                $(this).show();
+            }
+            // Filter products based on selected categories
+            else if (productCategories) {
+                var categories = productCategories.split(',');
+                var matches = selectedCategories.filter(function(category) {
+                    return categories.indexOf(category) !== -1;
+                });
+
+                if (matches.length > 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
+            } else {
+                $(this).hide();
             }
         });
+
+
     });
 
 
