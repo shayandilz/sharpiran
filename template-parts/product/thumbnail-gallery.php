@@ -18,7 +18,7 @@ foreach ($attachment_ids as $attachment_id) {
         <?php
         foreach ($image_urls as $image_src_url) { ?>
             <div class="swiper-slide">
-                <div class="ratio ratio-1x1">
+                <div class="img-fluid">
                     <img src="<?= $image_src_url ?>">
                 </div>
             </div>

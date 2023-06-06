@@ -1,4 +1,4 @@
-<nav class="sticky__nav navbar navbar-light navbar-expand-lg bg-white start-0 end-0 z-10 mb-1 py-2 anim shadow-sm">
+<nav class="sticky__nav navbar navbar-light navbar-expand-lg bg-white start-0 end-0 z-10 mb-1 py-2 shadow-sm position-fixed top-0">
     <div class="container">
         <a class="navbar-brand me-5" href="/">
             <img width="40" height="40" src="<?= get_field('logo', 'option')['url']; ?>"
