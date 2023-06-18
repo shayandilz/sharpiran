@@ -47,7 +47,8 @@ get_header( 'shop' );
                         <?php if (have_posts()) {
                             while (have_posts()) : the_post(); ?>
                                 <div class="col">
-                                    <?php wc_get_template_part('content', 'single-card'); ?>
+<!--                                    --><?php //wc_get_template_part('content', 'single-card'); ?>
+                                    <?php get_template_part('template-parts/product_card');?>
                                 </div>
                             <?php endwhile;
                         } else {
