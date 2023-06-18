@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row justify-content-between">
+    <div class="row justify-content-lg-between justify-content-center">
         <!--            aboutUs-->
         <div class="col-lg-5 col-12 ">
             <h5 class="text-white pb-3 text-center text-lg-start">درباره ما</h5>
@@ -15,7 +15,7 @@
                 if ($menu) :
                     wp_nav_menu(array(
                         'theme_location' => 'footerLocationOne',
-                        'menu_class' => 'navbar-nav flex-row gap-4 justify-content-center justify-content-lg-start',
+                        'menu_class' => 'navbar-nav flex-row gap-4 justify-content-center justify-content-lg-start flex-wrap',
                         'container' => false,
                         'menu_id' => 'navbarToggler Menu',
                         'item_class' => 'nav-item',
