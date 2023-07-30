@@ -90,8 +90,6 @@ $(document).ready(function () {
         // Filter the product list based on selected categories
         $('.product-card').each(function() {
             var productCategories = $(this).attr('data-categories');
-            console.log('Product Categories:', productCategories);
-            console.log('Selected Categories:', selectedCategories);
 
             // Show all products if "All Products" is selected or no category is selected
             if (isAllSelected || selectedCategories.length === 0) {

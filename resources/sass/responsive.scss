@@ -1,4 +1,13 @@
 @include media-breakpoint-up(lg) {
+  .category-filter__list {
+    img {
+      transition: all 0.2s ease-out;
+      cursor: pointer;
+      &:hover {
+        transform: scale(2);
+      }
+    }
+  }
   .shop_swiper {
     height: 600px;
   }
@@ -29,10 +38,15 @@
     position: sticky !important;
   }
   .product-card {
+    .card {
+    transition: all 0.3s linear;
+    }
     .card-body {
       transition: all 0.5s;
       margin-top: 10%;
       h6 , p {
+        transition: all 0.4s linear;
+        cursor:default;
         scale: 1.2;
       }
       .btn-addToCard {
@@ -43,12 +57,17 @@
     }
 
     &:hover {
+      .card {
+        background-color:  #6c757d;
+      }
       .card-body {
         h6  {
+          color:white;
           padding-top: 1rem;
           scale: 1;
         }
         p {
+          color:white;
           scale: 1;
         }
         margin-top: 0!important;

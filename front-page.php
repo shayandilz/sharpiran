@@ -9,11 +9,11 @@ get_header(); ?>
         <div class="row justify-content-center align-items-start py-3">
             <div class="col-lg-3">
                 <h3 class="text-red fw-bold fs-5">دسته بندی محصولات</h3>
-                <ul class="category-list justify-content-center pt-2 gap-3 align-items-center list-unstyled shadow-sm p-3 rounded">
+                <ul class="category-list justify-content-center pt-4 gap-3 align-items-center list-unstyled shadow-sm p-3 rounded">
                     <?php
                     $taxonomy = 'product_cat';
                     $orderby = 'name';
-                    $show_count = 0;      // 1 for yes, 0 for no
+                    $show_count = 1;      // 1 for yes, 0 for no
                     $pad_counts = 0;      // 1 for yes, 0 for no
                     $hierarchical = 1;    // 1 for yes, 0 for no
                     $title = '';
@@ -30,12 +30,12 @@ get_header(); ?>
 
                     $all_categories = get_categories($args);
 
-                    // Add an option to display all products
-                    echo '<li>';
-                    echo '<label>';
-                    echo '<input type="checkbox" class="category-filter" value="all" checked > همه محصولات';
-                    echo '</label>';
-                    echo '</li>';
+//                    // Add an option to display all products
+//                    echo '<li>';
+//                    echo '<label>';
+//                    echo '<input type="checkbox" class="category-filter" value="all" > همه محصولات';
+//                    echo '</label>';
+//                    echo '</li>';
 
                     function display_categories($categories, $parent_id = 0)
                     {
@@ -48,12 +48,12 @@ get_header(); ?>
                                 $has_children = $category->category_count > 0;
 
                                 // Output category name with checkbox
-                                echo '<li>';
-                                echo '<label>';
-                                echo '<input type="checkbox" class="category-filter" value="' . $category_id . '"> ';
-                                echo $category_name;
+                                echo '<li class="category-filter__list">';
+                                echo '<label class="d-flex align-items-start gap-2">';
+                                echo '<input type="checkbox" class="category-filter mt-1" value="' . $category_id . '"> ';
+                                echo '<p> ' . $category_name . '</p>';
                                 if ($thumbnail_url) {
-                                    echo '<img class="img-thumbnail mx-1" width="40" height="40" src="' . $thumbnail_url . '">';
+                                    echo '<img class="img-thumbnail ms-auto me-0" width="40" height="40" src="' . $thumbnail_url . '">';
                                 }
                                 echo '</label>';
 
